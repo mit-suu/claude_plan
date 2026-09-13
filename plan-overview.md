@@ -201,6 +201,7 @@ flowchart LR
 - T21 merge trước; T22/T23/T24 song song; T24 chạy e2e T23 trong compose. Tick M5.
 
 **Nguyên tắc chung**
+- Mọi người (và AI agent) đọc `coding-rules.md` trước khi code: bảng vùng sở hữu file theo task, điều cấm, quy trình yêu cầu chéo (XREQ). Sau mỗi task hoặc mỗi phiên làm việc, xuất báo cáo theo `task-report-template.md` và dán vào PR.
 - Không code trước dependency: người rảnh đi review PR hoặc viết test cho task wave sau.
 - Mọi thay đổi `spine.schema.ts`, `pipeline-contract.md`, `step-registry.json`, `RenderedDocument` sau khi đóng băng phải qua PR `contract-change`.
 - Không sửa nội dung `audit.md`; ghi thiếu sót tài liệu vào `docs/spec-gaps.md`.
@@ -290,4 +291,4 @@ Chỉ mở khi nhóm chốt business-flow §9 và sau M5. Không chi tiết ở 
 
 ## 10. Danh sách file plan
 
-`plan-overview.md` (file này) và 24 file task: `task-01-spine-schema.md`, `task-02-fixture-spine.md`, `task-03-skill-assets.md`, `task-04-notification-billing.md`, `task-05-docx-writer.md`, `task-06-admin-readonly.md`, `task-07-fe-foundation.md`, `task-08-op-engine.md`, `task-09-section-registry-check.md`, `task-10-diagram-renderers.md`, `task-11-draft-to-ops.md`, `task-12-step-registry-fe-shell.md`, `task-13-step-runner.md`, `task-14-skills-s2-s3.md`, `task-15-assemble-export.md`, `task-16-fe-verification-change.md`, `task-17-change-flow.md`, `task-18-skills-s4-s8.md`, `task-19-s9-baseline.md`, `task-20-discovery-brief.md`, `task-21-migration-cleanup.md`, `task-22-integration-tests.md`, `task-23-fe-integration-e2e.md`, `task-24-ops-docker.md`.
+`plan-overview.md` (file này), `coding-rules.md` (quy tắc và vùng sở hữu file), `task-report-template.md` (mẫu báo cáo bắt buộc) và 24 file task: `task-01-spine-schema.md`, `task-02-fixture-spine.md`, `task-03-skill-assets.md`, `task-04-notification-billing.md`, `task-05-docx-writer.md`, `task-06-admin-readonly.md`, `task-07-fe-foundation.md`, `task-08-op-engine.md`, `task-09-section-registry-check.md`, `task-10-diagram-renderers.md`, `task-11-draft-to-ops.md`, `task-12-step-registry-fe-shell.md`, `task-13-step-runner.md`, `task-14-skills-s2-s3.md`, `task-15-assemble-export.md`, `task-16-fe-verification-change.md`, `task-17-change-flow.md`, `task-18-skills-s4-s8.md`, `task-19-s9-baseline.md`, `task-20-discovery-brief.md`, `task-21-migration-cleanup.md`, `task-22-integration-tests.md`, `task-23-fe-integration-e2e.md`, `task-24-ops-docker.md`.
