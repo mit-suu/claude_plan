@@ -1,6 +1,6 @@
 # Task 10 — Diagram renderers ×5 + nối PlantUML pipeline
 
-**Wave:** 2 · **Người phụ trách:** C · **Effort:** 8 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [ ] Xong
+**Wave:** 2 · **Người phụ trách:** C · **Effort:** 8 điểm · **Trạng thái:** [ ] Chưa làm  [x] Đang làm  [ ] Xong
 
 ## Mục tiêu
 Một đường duy nhất cho diagram (Phases §7.1): projection Spine → `.puml` → compile-check → PlantUML self-host → `diagrams[]` với `source_hash`, `render_status` → nhúng khi export. Năm loại: context, usecase, screen_flow, erd, screen_layout (salt).
@@ -36,10 +36,12 @@ D1 (PlantUML client chưa nối; erd/screen_flow là markdown; Excalidraw song s
 - 5 renderer + service + route; ảnh lưu nội bộ; skill renderer có nội dung.
 
 ## Tiêu chí hoàn thành (DoD)
-- [ ] 5 hình fixture render `ok` trên PlantUML local; snapshot puml ổn định.
-- [ ] Đổi `actors[].description` không đổi `source_hash` của `usecase`; đổi `actors[].name` thì đổi.
-- [ ] `.puml` lỗi cú pháp cho `render_status=error` và không ném ngoại lệ ra API.
-- [ ] `plantuml.test.ts` không còn pass im lặng.
+- [x] 5 hình fixture render `ok` trên PlantUML local; snapshot puml ổn định.
+- [x] Đổi `actors[].description` không đổi `source_hash` của `usecase`; đổi `actors[].name` thì đổi.
+- [x] `.puml` lỗi cú pháp cho `render_status=error` và không ném ngoại lệ ra API.
+- [x] `plantuml.test.ts` không còn pass im lặng.
+
+> 2026-09-14: nhánh `feat/t10-t11-diagram-draft-ops`, commit riêng `t10:`. Kiểm với PlantUML thật (docker `plantuml/plantuml-server:jetty` = 1.2026.8): 4 hình cố định + 5 wireframe fixture compile ok. Probe cho thấy server trả HTTP 400 kèm ảnh lỗi, nên client/compile-check đã sửa theo. Renderer SKILL.md có nội dung nhưng vẫn giữ `stub: true` vì test T03 bắt buộc (XREQ T10→T03). Chưa gọi skill `render_fix` bằng model (cắm qua `deps.fix` ở T13).
 
 ## Ghi chú / rủi ro
 - Không có Sequence Diagram (Phases §7.1).

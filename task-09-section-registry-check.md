@@ -1,6 +1,6 @@
 # Task 09 — Section registry (profile FPT) + status() + deterministic check + flags/waiver
 
-**Wave:** 2 · **Người phụ trách:** B · **Effort:** 13 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [ ] Xong
+**Wave:** 2 · **Người phụ trách:** B · **Effort:** 13 điểm · **Trạng thái:** [ ] Chưa làm  [x] Đang làm  [ ] Xong
 
 ## Mục tiêu
 Thay "25 section type" bằng danh sách section FPT theo khoá logic, bảng ánh xạ field → section 3 cột (srs-spine §4), `status()` là hàm tính (§5), 10 luật cờ đỏ + 6 luật vàng cardinality (§7, §8.1), khoá `flags[]`, waiver có hạn. Cung cấp `GET /progress` mới thay `phase-gate`.
@@ -41,10 +41,12 @@ A3 (danh sách section sai template), A7 (status lưu, thiếu stale/derived), C
 - Module kiểm tất định hoàn chỉnh, route flags/progress chạy trên fixture.
 
 ## Tiêu chí hoàn thành (DoD)
-- [ ] Fixture đầy đủ cho 0 cờ đỏ, cờ vàng chỉ do màn `placeholder` (`screen_no_function` nếu có).
-- [ ] Waive luật không waive được trả 400; waive hợp lệ đặt `waived_by_user=true`; đổi `spine_version` mà lỗi còn thì cờ mở lại.
-- [ ] `GET /progress` trả `showPercent=false` khi N chưa chốt.
-- [ ] Mọi cờ đỏ có `remediation_step` không rỗng (test quét).
+- [x] Fixture đầy đủ cho 0 cờ đỏ, cờ vàng chỉ do màn `placeholder` (`screen_no_function` nếu có).
+- [x] Waive luật không waive được trả 400; waive hợp lệ đặt `waived_by_user=true`; đổi `spine_version` mà lỗi còn thì cờ mở lại.
+- [x] `GET /progress` trả `showPercent=false` khi N chưa chốt.
+- [x] Mọi cờ đỏ có `remediation_step` không rỗng (test quét).
+
+> 2026-09-14: code + 42 test mới xanh, làm chung nhánh `feat/t08-op-engine` theo yêu cầu (chưa commit). `show_percent` là tên field snake_case theo contract. `stepsOf` dùng bảng tạm cho tới khi T12 có step registry. Còn: commit/PR, review.
 
 ## Ghi chú / rủi ro
 - Không đặt ngưỡng phần trăm ở đâu cả (Phases §6.5).

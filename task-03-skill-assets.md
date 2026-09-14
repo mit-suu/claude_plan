@@ -47,7 +47,7 @@ D2 (8 prompt phẳng thay vì 29 skill), D3 (DB override ưu tiên hơn đĩa), 
 ## Tiêu chí hoàn thành (DoD)
 - [ ] Server boot qua `startup-checks` với cấu trúc mới.
 - [ ] `prompt-assets.test.ts` xanh; test mới: `getSkill("draft-to-ops")` trả `asset_version` ổn định.
-- [ ] `PUT /admin/prompt-templates/:actionType` trả 410.
+- [x] ~~`PUT /admin/prompt-templates/:actionType` trả 410.~~ **Bỏ (quyết định nhóm 2026-09-14):** bỏ hẳn tính năng prompt-template, không giữ route 410/GET. Prompt chỉ sống trên đĩa (skill registry).
 - [ ] `grep -r "drawtest" src/` chỉ còn trong `_archive`.
 
 ## Ghi chú / rủi ro
