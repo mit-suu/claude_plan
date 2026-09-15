@@ -1,6 +1,6 @@
 # Task 15 — Assemble S-8.2 / S-8.3 / S-8.4 + nối export Word
 
-**Wave:** 3 · **Người phụ trách:** C · **Effort:** 9 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [x] Xong (2026-09-15, nhánh `wave3/overnight`; `NO_WORKING_DRAFT` chờ contract-change — xem `flintflow/plans/reports/t15-report-260915-assemble-export.md`)
+**Wave:** 3 · **Người phụ trách:** C · **Effort:** 9 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [x] Xong (2026-09-15, nhánh `wave3/review`; `NO_WORKING_DRAFT` chờ contract-change — xem `flintflow/plans/reports/t15-report-260915-assemble-export.md`)
 
 ## Mục tiêu
 Phases §9.3 bước 3: một luồng đi trọn fixture, render section từ field theo bảng §4, `RenderedDocument`, file Word (T05). Có §I Record of Changes từ `changes[]`, đánh số §3.x.y theo `order`, consistency pass tất định.

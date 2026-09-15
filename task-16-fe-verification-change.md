@@ -1,6 +1,6 @@
 # Task 16 — FE Verification & Change panel + DocumentPane từ BE + Export UI + Onboarding
 
-**Wave:** 3 · **Người phụ trách:** D · **Effort:** 10 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [x] Xong (2026-09-15, nhánh `wave3/overnight`; export từ BE thật + `PATCH /users/me` chờ — xem `flintflow/plans/reports/t16-report-260915-fe-verification-change.md`)
+**Wave:** 3 · **Người phụ trách:** D · **Effort:** 10 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [x] Xong (2026-09-15, nhánh `wave3/review`; export từ BE thật + `PATCH /users/me` chờ — xem `flintflow/plans/reports/t16-report-260915-fe-verification-change.md`)
 
 ## Mục tiêu
 Thay VerificationPane demo bằng dữ liệu thật (cờ đỏ/vàng, waive, điểm sẵn sàng), thêm Change panel (sửa qua chat với preview diff, hoà giải, undo, traceability), Document pane render `RenderedDocument` từ BE, Export UI theo §6.5, read-only view (UC 1.14), onboarding (UC 1.12).

@@ -1,6 +1,6 @@
 # Task 13 — Step runner / orchestrator + gate + meter + resume
 
-**Wave:** 3 · **Người phụ trách:** A · **Effort:** 10 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [x] Xong (2026-09-15, nhánh `wave3/overnight`; 2 DoD chờ contract-change / XREQ T04 — xem `flintflow/plans/reports/t13-report-260915-step-runner.md`)
+**Wave:** 3 · **Người phụ trách:** A · **Effort:** 10 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [x] Xong (2026-09-15, nhánh `wave3/review`; 2 DoD chờ contract-change / XREQ T04 — xem `flintflow/plans/reports/t13-report-260915-step-runner.md`)
 
 ## Mục tiêu
 Khung hành động dùng chung cho 12 phase (Phases §3): Intake, Elicit, Draft, Render, Review, Gate, Meter; trần 8 lượt/step, 3 Regenerate/step; Fast/Coaching; resume ở mức step; đúng một session pipeline; reserve credit theo lượt.

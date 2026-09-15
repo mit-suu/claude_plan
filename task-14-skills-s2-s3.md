@@ -1,6 +1,6 @@
 # Task 14 — Content skill S-2 + S-3 end-to-end trên fixture
 
-**Wave:** 3 · **Người phụ trách:** B · **Effort:** 9 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [x] Xong (2026-09-15, nhánh `wave3/overnight`; bị chặn một phần: `stub: true` do test T03, `E2E_AI=1` chưa chạy — xem `flintflow/plans/reports/t14-report-260915-skills-s2-s3.md`)
+**Wave:** 3 · **Người phụ trách:** B · **Effort:** 9 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [x] Xong (2026-09-15, nhánh `wave3/review`; bị chặn một phần: `stub: true` do test T03, `E2E_AI=1` chưa chạy — xem `flintflow/plans/reports/t14-report-260915-skills-s2-s3.md`)
 
 ## Mục tiêu
 Phases §9.3 bước 2: chứng minh phần AI khó nhất (actors & use cases, gap BMAD không phủ) chạy trọn: từ Spine chỉ có `project{}` + addendum, S-2.1…S-2.5 (§1) và S-3.1…S-3.6 (§2) sinh op hợp lệ, 0 cờ đỏ, có hình use case.
