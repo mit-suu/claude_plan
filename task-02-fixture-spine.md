@@ -1,6 +1,6 @@
 # Task 02 — Fixture Spine 19 màn + seed script + 10 ca thử op
 
-**Wave:** 1 · **Người phụ trách:** B · **Effort:** 6 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [ ] Xong
+**Wave:** 1 · **Người phụ trách:** B · **Effort:** 6 điểm · **Trạng thái:** [ ] Chưa làm  [x] Đang làm (code xong 2026-09-14, chờ xác nhận T01/T03 tại M1)  [ ] Xong
 
 ## Mục tiêu
 Thực hiện Phases §9.3 bước 0: một Spine seed đầy đủ viết tay (không qua AI) cho project mẫu 19 màn, dùng làm dữ liệu chuẩn cho op engine, deterministic check, renderer, assemble, export, đo token. Kèm 10 ca thử "model có sinh op đúng path/schema không".
@@ -36,10 +36,10 @@ Không đóng trực tiếp lệch nào; là điều kiện để kiểm chứng
 - 2 fixture JSON + 10 ca op + script seed chạy được trên Mongo local.
 
 ## Tiêu chí hoàn thành (DoD)
-- [ ] `spineSchema.parse(fixture)` không lỗi (sau M1).
-- [ ] `npm run seed:fixture` tạo project mở được trên FE (dù FE chưa hiển thị Spine).
-- [ ] 10 ca op có `expected_ops` hợp lệ theo `opTransactionSchema` (T03).
-- [ ] README mô tả cách thêm ca thử mới.
+- [ ] `spineSchema.parse(fixture)` không lỗi (sau M1). *(T01 chưa merge — tạm thay bằng test 8 bất biến + đếm trong `src/scripts/fixture-spine.test.ts`, 36 test xanh)*
+- [x] `npm run seed:fixture` tạo project mở được trên FE (dù FE chưa hiển thị Spine). *(Đã seed full + minimal trên Mongo local, idempotent; project tạo qua `Project` model chuẩn nên FE dashboard liệt kê được)*
+- [ ] 10 ca op có `expected_ops` hợp lệ theo `opTransactionSchema` (T03). *(T03 chưa merge — ops theo shape `{op, path, value?, reason}` tài liệu; test kiểm cấu trúc + path phân giải trên fixture; đối chiếu schema tại M1)*
+- [x] README mô tả cách thêm ca thử mới.
 
 ## Ghi chú / rủi ro
 - Không dùng AI để sinh fixture: sai lệch fixture sẽ làm sai mọi test phía sau.

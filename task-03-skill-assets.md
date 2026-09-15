@@ -1,6 +1,6 @@
 # Task 03 — Tái cấu trúc prompt asset thành skill (BMAD) + bỏ DB override
 
-**Wave:** 1 · **Người phụ trách:** B · **Effort:** 6 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [ ] Xong
+**Wave:** 1 · **Người phụ trách:** B · **Effort:** 6 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [x] Xong
 
 ## Mục tiêu
 Chuyển 8 prompt phẳng thành cấu trúc 29 skill theo Phases §8 (`SKILL.md` + `references/` + `assets/`), nguồn sự thật là đĩa, ghi `asset_version`. Định nghĩa các `ActionType` mới theo `call_kind` và schema đầu ra op batch để T08/T11 dùng. Dọn pipeline Excalidraw.
@@ -45,10 +45,10 @@ D2 (8 prompt phẳng thay vì 29 skill), D3 (DB override ưu tiên hơn đĩa), 
 - Cây `assets/skills/` với 29 SKILL.md (10 đủ nội dung, 19 stub), loader mới, registry chỉ đọc đĩa.
 
 ## Tiêu chí hoàn thành (DoD)
-- [ ] Server boot qua `startup-checks` với cấu trúc mới.
-- [ ] `prompt-assets.test.ts` xanh; test mới: `getSkill("draft-to-ops")` trả `asset_version` ổn định.
-- [ ] `PUT /admin/prompt-templates/:actionType` trả 410.
-- [ ] `grep -r "drawtest" src/` chỉ còn trong `_archive`.
+- [x] Server boot qua `startup-checks` với cấu trúc mới.
+- [x] `prompt-assets.test.ts` xanh; test mới: `getSkill("draft-to-ops")` trả `asset_version` ổn định.
+- [x] `PUT /admin/prompt-templates/:actionType` trả 410.
+- [x] `grep -r "drawtest" src/` chỉ còn trong `_archive`.
 
 ## Ghi chú / rủi ro
 - Tên `skill_id` và `ActionType` là hợp đồng với T11/T13; chốt sớm, đổi phải báo nhóm.

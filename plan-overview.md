@@ -250,8 +250,8 @@ Cách cập nhật: người phụ trách đổi ô Trạng thái của task mì
 | Wave | Task | Người | Trạng thái | Ngày cập nhật | Ghi chú |
 |---|---|---|---|---|---|
 | 1 | T01 | A | Chưa làm | | |
-| 1 | T02 | B | Chưa làm | | |
-| 1 | T03 | B | Chưa làm | | |
+| 1 | T02 | B | Đang làm | 2026-09-14 | Code + test + seed xong; 2 mục DoD chờ `spineSchema` (T01) và `opTransactionSchema` (T03) tại M1 |
+| 1 | T03 | B | Xong | 2026-09-14 | 30 skill (10 đủ + 20 stub, lệch 29 ghi ở docs/spec-gaps.md); `getSkill`/ActionType/`opTransactionSchema` sẵn cho M1; 32 test xanh; chưa commit |
 | 1 | T04 | C | Chưa làm | | |
 | 1 | T05 | A | Chưa làm | | |
 | 1 | T06 | D | Chưa làm | | |
