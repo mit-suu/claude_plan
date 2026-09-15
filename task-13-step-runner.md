@@ -1,6 +1,6 @@
 # Task 13 — Step runner / orchestrator + gate + meter + resume
 
-**Wave:** 3 · **Người phụ trách:** A · **Effort:** 10 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [ ] Xong
+**Wave:** 3 · **Người phụ trách:** A · **Effort:** 10 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [x] Xong (2026-09-15, nhánh `wave3/overnight`; 2 DoD chờ contract-change / XREQ T04 — xem `flintflow/plans/reports/t13-report-260915-step-runner.md`)
 
 ## Mục tiêu
 Khung hành động dùng chung cho 12 phase (Phases §3): Intake, Elicit, Draft, Render, Review, Gate, Meter; trần 8 lượt/step, 3 Regenerate/step; Fast/Coaching; resume ở mức step; đúng một session pipeline; reserve credit theo lượt.
@@ -40,11 +40,11 @@ B1 (không có step), B4 (gate), B6 (sinh tuần tự trong khung step), B7 (kho
 - API pipeline hoạt động đúng contract với mock provider; FE T12 nối được.
 
 ## Tiêu chí hoàn thành (DoD)
-- [ ] S-3.1 đến S-3.6 chạy trọn qua API với mock provider; `steps[]`, `changes[]`, `usage[]` đúng.
-- [ ] Regenerate lần 4 trả `REGENERATE_LIMIT`; lượt 9 trả `CALL_LIMIT`.
-- [ ] 2 tab: txn thứ hai 409, credit refund, không tiêu trần.
-- [ ] Session không pipeline gọi `/run` trả 403 `NOT_PIPELINE_SESSION`.
-- [ ] Đóng giữa Draft rồi `POST /resume` đưa Spine về trạng thái trước step.
+- [x] S-3.1 đến S-3.6 chạy trọn qua API với mock provider; `steps[]`, `changes[]`, `usage[]` đúng. (`step-runner.test.ts`, `pipeline.controller.test.ts` — mức service + controller mock, chưa có supertest)
+- [x] Regenerate lần 4 trả `REGENERATE_LIMIT`; lượt 9 trả `CALL_LIMIT`. (`gate.service.test.ts`)
+- [ ] 2 tab: txn thứ hai 409, credit refund, không tiêu trần. (409 + không tiêu trần có test; ví thật chưa hoàn — chờ XREQ T04 `refundDeductedCredit`, `TODO(XREQ-local-1)` meter.service.ts)
+- [x] Session không pipeline gọi `/run` trả 403 `NOT_PIPELINE_SESSION`.
+- [ ] Đóng giữa Draft rồi `POST /resume` đưa Spine về trạng thái trước step. (`resume.test.ts` mức service; endpoint chưa mount — không có trong `pipeline-contract.md`, chờ PR contract-change)
 
 ## Ghi chú / rủi ro
 - `[A]/[P]` Party Mode không làm (Phases §9.1).

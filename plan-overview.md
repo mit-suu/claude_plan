@@ -263,7 +263,7 @@ Cách cập nhật: người phụ trách đổi ô Trạng thái của task mì
 | 2 | T11 | C | Xong | 2026-09-14 | Đã sửa (`2fefd2b`): txn do server sinh; `ops: []` ⇒ `txn: null`; retry gửi lại ops cũ; projection đọc step registry T12 |
 | 2 | T12 | D | Xong | 2026-09-14 | Đã sửa (FE `a425983`): huỷ SSE khi rời trang/chạy lại, luồng đóng sớm ⇒ lỗi `STREAM_CLOSED`, `spine_version` chỉ tăng; mock đóng luồng khi lỗi |
 | — | **M2** | A | [ ] | 2026-09-14 | Chưa tick: chờ 4/4 approve contract T08; chưa có nhãn `contract-change` trên GitHub (BE/FE). `wave2/review`: BE 428 + FE 102 test xanh, typecheck sạch |
-| 3 | T13 | A | Chưa làm | | |
+| 3 | T13 | A | Xong | 2026-09-15 | DoD 3/5. Nhánh `wave3/overnight` (merge `09768dd`). BE 474 test xanh. **Chờ quyết định:** `POST /resume` không có trong contract → chưa mount (đề xuất contract-change); hoàn ví khi 409 cần XREQ T04 `refundDeductedCredit`. Báo cáo: `flintflow/plans/reports/t13-report-260915-step-runner.md` |
 | 3 | T14 | B | Chưa làm | | |
 | 3 | T15 | C | Chưa làm | | |
 | 3 | T16 | D | Chưa làm | | |
@@ -279,7 +279,7 @@ Cách cập nhật: người phụ trách đổi ô Trạng thái của task mì
 | 5 | T24 | C | Chưa làm | | |
 | — | **M5** | cả 4 | [ ] | | |
 
-**Tiến độ wave:** W1 6/7 · W2 4/5 · W3 0/4 · W4 0/4 · W5 0/4 · **Tổng 10/24** (sau lượt sửa 2026-09-14 trên `wave2/review`; chi tiết ở `review-t01-t12.md`).
+**Tiến độ wave:** W1 6/7 · W2 4/5 · W3 1/4 · W4 0/4 · W5 0/4 · **Tổng 11/24** (T13 xong 2026-09-15 trên `wave3/overnight`, phiên overnight; W1/W2 giữ như lượt sửa 2026-09-14, chi tiết ở `review-t01-t12.md`).
 
 ## 9. Wave 6 tuỳ chọn (business-flow.md, chỉ liệt kê)
 
