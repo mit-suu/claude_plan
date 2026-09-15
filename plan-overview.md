@@ -255,14 +255,14 @@ Cách cập nhật: người phụ trách đổi ô Trạng thái của task mì
 | 1 | T04 | C | Xong | 2026-09-14 | **Chốt: dùng `payment_service` thật** (VietQR). Đã sửa (`85b8918` + FE `befce78`): `deductCredit` hoàn claim khi ví lệch, nhánh expired trừ theo số khả dụng; gói trả phí chỉ kích hoạt qua checkout `plan:<id>` |
 | 1 | T05 | A | Đang làm | 2026-09-14 | Đã sửa (`2efb86d` + FE `d12b35a`): body `/export` 15mb, nhận nhầm bảng/numbered list; FE `RenderedDocument.projectId`. **Còn:** mở file docx bằng Word/LibreOffice (máy review chưa cài) |
 | 1 | T06 | D | Xong | 2026-09-14 | 403/200 đúng. Trang prompt-templates bỏ theo quyết định ở T03. Đã sửa (`f3680a8`): quyền admin đọc role/`isActive` từ DB mỗi request. Còn: ai-cost chưa đối chiếu DB thật |
-| 1 | T07 | D | Xong | 2026-09-14 | typecheck/lint/test xanh; chưa chạy `build`. Còn Google client ID thật trong `.env.local` (không track) |
-| — | **M1** | A | [ ] | | Chưa tick: chỉ còn T05 mở file docx bằng tay |
+| 1 | T07 | D | Xong | 2026-09-14 | typecheck/lint/test xanh; `build` xanh trên `develop` a3f9c3d (2026-09-14 23:00). Còn Google client ID thật trong `.env.local` (không track) |
+| — | **M1** | A | [ ] | 2026-09-14 | Chưa tick: T05 mở file docx bằng tay; CI FE trên `develop` a3f9c3d đỏ ở `npm ci` (`package-lock.json` thiếu `@emnapi/core`, `@emnapi/runtime`) |
 | 2 | T08 | A | Đang làm | 2026-09-14 | Đã sửa (`f7ccb3d`): ghi Spine+changes trong Mongo transaction (standalone: lưu Spine trước, cấp lại seq); `revert_conflict`; `path_not_writable`; lô không đổi không tăng version; contract cập nhật. **Còn:** 4/4 người approve `pipeline-contract.md` |
 | 2 | T09 | B | Xong | 2026-09-14 | Đã sửa (`e9583a5`): recompute thường không đóng cờ luật S-9; kiểm quyền trước validate; bỏ spread O(n²) |
 | 2 | T10 | C | Xong | 2026-09-14 | Đã sửa (`7a2c1e5`): so theo `source_hash` + `force`; lưu file sau transaction, xoá file cũ; bỏ `dropErrorLine` và marker "syntax error" chung |
 | 2 | T11 | C | Xong | 2026-09-14 | Đã sửa (`2fefd2b`): txn do server sinh; `ops: []` ⇒ `txn: null`; retry gửi lại ops cũ; projection đọc step registry T12 |
 | 2 | T12 | D | Xong | 2026-09-14 | Đã sửa (FE `a425983`): huỷ SSE khi rời trang/chạy lại, luồng đóng sớm ⇒ lỗi `STREAM_CLOSED`, `spine_version` chỉ tăng; mock đóng luồng khi lỗi |
-| — | **M2** | A | [ ] | | Chưa tick: chờ 4/4 approve contract T08. `wave2/review`: BE 428 + FE 102 test xanh, typecheck sạch |
+| — | **M2** | A | [ ] | 2026-09-14 | Chưa tick: chờ 4/4 approve contract T08; chưa có nhãn `contract-change` trên GitHub (BE/FE). `wave2/review`: BE 428 + FE 102 test xanh, typecheck sạch |
 | 3 | T13 | A | Chưa làm | | |
 | 3 | T14 | B | Chưa làm | | |
 | 3 | T15 | C | Chưa làm | | |
