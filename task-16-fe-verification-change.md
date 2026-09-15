@@ -42,7 +42,7 @@ C6 (demo hardcode), C3 phần FE (impact/stale/diff), C8 (export UI), C1 phần 
 ## Tiêu chí hoàn thành (DoD)
 - [x] FlagsPanel hiển thị cờ từ BE fixture; waive luật không waive được không có nút; waive hợp lệ cập nhật danh sách. (`FlagsPanel.test.tsx`, `useFlags.test.ts` — msw theo fixture)
 - [x] DocumentPane render `RenderedDocument` fixture đủ 5 chương; chip stale đúng. (`DocumentPane.test.tsx`)
-- [ ] Export Word draft tải về từ BE thật; chưa assemble hiện lý do + link S-8.2. (msw: `ExportPanel.test.tsx`, `handlers.change-flow.test.ts`; 2026-09-15 BE thật trả docx + 409 `NO_WORKING_DRAFT {hint}` qua API — còn bấm nút Export trên trình duyệt)
+- [x] Export Word draft tải về từ BE thật; chưa assemble hiện lý do + link S-8.2. (msw: `ExportPanel.test.tsx`, `handlers.change-flow.test.ts`; 2026-09-15 trình duyệt + BE thật: nút "Tải bản nháp (.docx)" ⇒ `GET /export/word` 200, file 226 KB. Panel còn báo `/baselines` 404 — endpoint T19)
 > 2026-09-15 `wave3/decisions` FE `aba85d5`: `PATCH /users/me` có ở BE (`a100cc4`), `ChatSession.is_pipeline` + `User.onboardedAt` chính thức trong `types/`, hết `TODO(XREQ)`.
 - [x] ChangePanel chạy trọn trên mock; `/view` ẩn đúng các trường. (`ChangePanel.test.tsx`, `view/page.test.tsx`)
 - [x] typecheck/lint/test xanh. (tsc 0 lỗi; lint 0 lỗi/14 warning baseline; 27 file / 181 test)
