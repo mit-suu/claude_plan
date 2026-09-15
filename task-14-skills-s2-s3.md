@@ -1,6 +1,6 @@
 # Task 14 — Content skill S-2 + S-3 end-to-end trên fixture
 
-**Wave:** 3 · **Người phụ trách:** B · **Effort:** 9 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [ ] Xong
+**Wave:** 3 · **Người phụ trách:** B · **Effort:** 9 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [x] Xong (2026-09-15, nhánh `wave3/overnight`; bị chặn một phần: `stub: true` do test T03, `E2E_AI=1` chưa chạy — xem `flintflow/plans/reports/t14-report-260915-skills-s2-s3.md`)
 
 ## Mục tiêu
 Phases §9.3 bước 2: chứng minh phần AI khó nhất (actors & use cases, gap BMAD không phủ) chạy trọn: từ Spine chỉ có `project{}` + addendum, S-2.1…S-2.5 (§1) và S-3.1…S-3.6 (§2) sinh op hợp lệ, 0 cờ đỏ, có hình use case.
@@ -37,10 +37,10 @@ B5/B6 phần nội dung (prompt generic `generate_section` thay bằng skill the
 - 4 skill content hoàn chỉnh + test e2e + số đo token.
 
 ## Tiêu chí hoàn thành (DoD)
-- [ ] Mock e2e xanh trên CI.
-- [ ] `E2E_AI=1`: 3/3 lần đạt 0 cờ đỏ ở §1/§2, ≥ 5 actor, ≥ 12 use case, diagram usecase `render_status=ok`.
-- [ ] Field render không có ký tự có dấu (`non_english_content` = 0).
-- [ ] `docs/measurements.md` có số cho từng step.
+- [x] Mock e2e xanh trên CI. (`src/modules/pipeline/skills/s2-s3.e2e.test.ts` qua runner T13 thật)
+- [ ] `E2E_AI=1`: 3/3 lần đạt 0 cờ đỏ ở §1/§2, ≥ 5 actor, ≥ 12 use case, diagram usecase `render_status=ok`. (chưa chạy: không có provider thật; nội dung skill chưa tới model vì `stub: true` — XREQ T03 `prompt-assets.test.ts:97-107`)
+- [ ] Field render không có ký tự có dấu (`non_english_content` = 0). (mock assert = 0 nhưng nội dung do fixture; chờ `E2E_AI=1`)
+- [x] `docs/measurements.md` có số cho từng step. (số mock/ước lượng; cột số thật chờ `E2E_AI`)
 
 ## Ghi chú / rủi ro
 - Nếu tỉ lệ op sai schema > 30% sau 2 vòng sửa prompt, báo A để xem lại định dạng op (rủi ro gốc §9.3).
