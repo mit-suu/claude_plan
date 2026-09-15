@@ -44,10 +44,10 @@ F3 (notification, billing), E1 (usage thiếu `expires_at`, tặng cứng 100 cr
 ## Tiêu chí hoàn thành (DoD)
 - [ ] Test: reserve rồi hết hạn, `expireStaleReservations` trả về `reserved` đúng và ghi `state=expired`.
 - [ ] Test: parse lỗi thì không deduct, có release; parse ok thì deduct, không release.
-- [ ] `curl` webhook mock có chữ ký đúng cộng credit; sai chữ ký trả 401; gửi lại cùng `intentId` không cộng lần hai.
+- [x] ~~`curl` webhook mock có chữ ký đúng cộng credit; sai chữ ký trả 401; gửi lại cùng `intentId` không cộng lần hai.~~ **Thay bằng thanh toán thật (quyết định nhóm 2026-09-14):** callback `payment_service` được đối chiếu lại bằng `GET /api/orders/:id` (không tin body), callback lặp không cộng lần hai — có test trong `billing.test.ts`. Gói trả phí mua qua checkout `plan:<id>`; `POST /billing/upgrade` gói trả phí trả 402 (BE `85b8918`).
 - [ ] FE bell hiển thị số chưa đọc thật; đánh dấu đã đọc hoạt động.
 - [ ] `POST /ai-actions/estimate-cost` không auth trả 401.
 
 ## Ghi chú / rủi ro
-- Không tích hợp cổng thanh toán thật (Phases §9.2: mock/sandbox).
+- ~~Không tích hợp cổng thanh toán thật (Phases §9.2: mock/sandbox).~~ Đã tích hợp `payment_service` thật (VietQR). Hệ quả: dev/test offline cần `PAYMENT_*` env hoặc mock client như `billing.test.ts`; order timeout phía `payment_service` và intent `failed` nhận tiền muộn còn mở (xem `review-t01-t12.md`).
 - `monthly_reset` (cron reset quota) để ngoài vòng một; ghi TODO có tên trong `plan.config.ts`.

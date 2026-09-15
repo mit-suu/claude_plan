@@ -1,6 +1,6 @@
 # Task 05 — Word export writer (docx) + watermark DRAFT
 
-**Wave:** 1 · **Người phụ trách:** A · **Effort:** 5 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [ ] Xong
+**Wave:** 1 · **Người phụ trách:** A · **Effort:** 5 điểm · **Trạng thái:** [ ] Chưa làm  [x] Đang làm  [ ] Xong
 
 ## Mục tiêu
 Có bộ ghi `.docx` độc lập với Spine: nhận `RenderedDocument` và xuất file Word đúng khung FPT, watermark DRAFT, đánh dấu tại chỗ section stale, chèn ảnh diagram, dấu version trong file và tên file. Assemble (T15) sẽ sinh `RenderedDocument`; task này định nghĩa interface đó.
@@ -36,9 +36,9 @@ F2 (không có export Word, không có lib docx), C8 phần BE (export không b�
 - `writeDocx` dùng được độc lập; file mở được bằng Word/LibreOffice.
 
 ## Tiêu chí hoàn thành (DoD)
-- [ ] Test sinh docx từ JSON mẫu; kiểm `document.xml` có heading 5 chương, watermark, bảng §I.
-- [ ] Mở thủ công bằng LibreOffice không cảnh báo hỏng file (ghi kết quả vào PR).
-- [ ] Tên file và property version đúng định dạng.
+- [x] Test sinh docx từ JSON mẫu; kiểm `document.xml` có heading 5 chương, watermark, bảng §I. (Watermark VML nằm ở `word/header1.xml`; `document.xml` có nhãn `WORKING DRAFT` ở trang bìa.)
+- [ ] Mở thủ công bằng LibreOffice không cảnh báo hỏng file (ghi kết quả vào PR). — Máy dev chưa cài LibreOffice; mới kiểm bằng mammoth đọc lại được. File mẫu cần mở tay.
+- [x] Tên file và property version đúng định dạng.
 
 ## Ghi chú / rủi ro
 - Chỉ Word vòng một; PDF/Handoff hoãn (Phases §9.1).

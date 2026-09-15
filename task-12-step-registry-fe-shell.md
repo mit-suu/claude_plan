@@ -1,6 +1,6 @@
 # Task 12 — Step registry (51 + 5×N) + FE workspace shell v2 theo contract (mock)
 
-**Wave:** 2 · **Người phụ trách:** D · **Effort:** 13 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [ ] Xong
+**Wave:** 2 · **Người phụ trách:** D · **Effort:** 13 điểm · **Trạng thái:** [ ] Chưa làm  [x] Đang làm  [ ] Xong
 
 ## Mục tiêu
 Khai báo toàn bộ step (Phases §6.4) làm nguồn sự thật chung BE/FE, và dựng lại workspace FE theo mô hình phase → step → gate trên hợp đồng API (T08) với mock server, để Wave 3 chỉ cần nối thật.
@@ -49,10 +49,16 @@ B1 (2 hệ phase, không có step), B4 (gate theo section, không Accept as-is, 
 - `step-registry.json` được BE/FE dùng chung; workspace v2 chạy trên mock.
 
 ## Tiêu chí hoàn thành (DoD)
-- [ ] Test đếm step: 56 với N=1, 151 với N=20 (BE và FE).
-- [ ] Trên mock: đi từ S-3.1 đến S-3.6 với gate từng step; Regenerate lần 4 bị tắt; Accept as-is đòi lý do.
-- [ ] Không còn gọi `POST /specifications/.../generate` trong FE.
-- [ ] `npm run typecheck && lint && test` xanh.
+- [x] Test đếm step: 56 với N=1, 151 với N=20 (BE và FE).
+- [x] Trên mock: đi từ S-3.1 đến S-3.6 với gate từng step; Regenerate lần 4 bị tắt; Accept as-is đòi lý do.
+- [x] Không còn gọi `POST /specifications/.../generate` trong FE.
+- [x] `npm run typecheck && lint && test` xanh.
+
+> 2026-09-14:
+> - Nhánh BE `feat/t12-step-registry` (tách từ T09), nhánh FE `feat/t12-fe-workspace-shell` (tách từ `develop`).
+> - DoD 2 kiểm bằng test msw/node (`mocks/handlers.test.ts`: S-3.1 → S-3.6, REGENERATE_LIMIT, accept_as_is thiếu note) và test component `GateCard`. **Chưa click tay trên trình duyệt**: `proxy.ts` (T06) vẫn chuyển hướng `/projects/*` về login nếu thiếu cookie, nên muốn chạy mock UI phải đăng nhập trước hoặc có cookie.
+> - Lint 0 lỗi, 14 cảnh báo (13 có từ trước, cộng 1 từ `public/mockServiceWorker.js`).
+> - `stepsOf` (T09) và `STEP_SPECS` (T11) vẫn là bảng tạm; hợp nhất vào registry sau khi các nhánh merge.
 
 ## Ghi chú / rủi ro
 - Contract có thể đổi trước M2; theo dõi PR `contract-change`.

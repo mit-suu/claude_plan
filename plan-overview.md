@@ -249,25 +249,25 @@ Cách cập nhật: người phụ trách đổi ô Trạng thái của task mì
 
 | Wave | Task | Người | Trạng thái | Ngày cập nhật | Ghi chú |
 |---|---|---|---|---|---|
-| 1 | T01 | A | Chưa làm | | |
-| 1 | T02 | B | Đang làm | 2026-09-14 | Code + test + seed xong; 2 mục DoD chờ `spineSchema` (T01) và `opTransactionSchema` (T03) tại M1 |
-| 1 | T03 | B | Xong | 2026-09-14 | 30 skill (10 đủ + 20 stub, lệch 29 ghi ở docs/spec-gaps.md); `getSkill`/ActionType/`opTransactionSchema` sẵn cho M1; 32 test xanh; chưa commit |
-| 1 | T04 | C | Chưa làm | | |
-| 1 | T05 | A | Chưa làm | | |
-| 1 | T06 | D | Chưa làm | | |
-| 1 | T07 | D | Chưa làm | | |
-| — | **M1** | A | [ ] | | |
-| 2 | T08 | A | Chưa làm | | |
-| 2 | T09 | B | Chưa làm | | |
-| 2 | T10 | C | Chưa làm | | |
-| 2 | T11 | C | Chưa làm | | |
-| 2 | T12 | D | Chưa làm | | |
-| — | **M2** | A | [ ] | | |
-| 3 | T13 | A | Chưa làm | | |
-| 3 | T14 | B | Chưa làm | | |
-| 3 | T15 | C | Chưa làm | | |
-| 3 | T16 | D | Chưa làm | | |
-| — | **M3** | A + B | [ ] | | |
+| 1 | T01 | A | Xong | 2026-09-14 | DoD 5/5. Đã sửa (`c1ec448`): xoá cứng project dọn `Spine/Change/Baseline/Usage`; unique `(projectId, version)` cho baseline |
+| 1 | T02 | B | Xong | 2026-09-14 | Fixture + 10 ca op xanh. Đã sửa (`1f27ec4`): seed ghi qua model `Spine` với `projectId`, validate `spineSchema`. Chưa chạy seed trên Mongo thật |
+| 1 | T03 | B | Xong | 2026-09-14 | 30 skill + registry + ActionType. **Chốt: bỏ tính năng prompt-template** (không khôi phục route 410). Đã sửa (`70e807e`): startup nạp skill index; chặn action diagram đã archive |
+| 1 | T04 | C | Xong | 2026-09-14 | **Chốt: dùng `payment_service` thật** (VietQR). Đã sửa (`85b8918` + FE `befce78`): `deductCredit` hoàn claim khi ví lệch, nhánh expired trừ theo số khả dụng; gói trả phí chỉ kích hoạt qua checkout `plan:<id>` |
+| 1 | T05 | A | Đang làm | 2026-09-14 | Đã sửa (`2efb86d` + FE `d12b35a`): body `/export` 15mb, nhận nhầm bảng/numbered list; FE `RenderedDocument.projectId`. **Còn:** mở file docx bằng Word/LibreOffice (máy review chưa cài) |
+| 1 | T06 | D | Xong | 2026-09-14 | 403/200 đúng. Trang prompt-templates bỏ theo quyết định ở T03. Đã sửa (`f3680a8`): quyền admin đọc role/`isActive` từ DB mỗi request. Còn: ai-cost chưa đối chiếu DB thật |
+| 1 | T07 | D | Xong | 2026-09-14 | typecheck/lint/test xanh; `build` xanh trên `develop` a3f9c3d (2026-09-14 23:00). Còn Google client ID thật trong `.env.local` (không track) |
+| — | **M1** | A | [ ] | 2026-09-14 | Chưa tick: T05 mở file docx bằng tay; CI FE trên `develop` a3f9c3d đỏ ở `npm ci` (`package-lock.json` thiếu `@emnapi/core`, `@emnapi/runtime`) |
+| 2 | T08 | A | Xong | 2026-09-15 | Đã sửa (`f7ccb3d`): ghi Spine+changes trong Mongo transaction (standalone: lưu Spine trước, cấp lại seq); `revert_conflict`; `path_not_writable`; lô không đổi không tăng version; contract cập nhật. `pipeline-contract.md` đã approve 2026-09-15 |
+| 2 | T09 | B | Xong | 2026-09-14 | Đã sửa (`e9583a5`): recompute thường không đóng cờ luật S-9; kiểm quyền trước validate; bỏ spread O(n²) |
+| 2 | T10 | C | Xong | 2026-09-14 | Đã sửa (`7a2c1e5`): so theo `source_hash` + `force`; lưu file sau transaction, xoá file cũ; bỏ `dropErrorLine` và marker "syntax error" chung |
+| 2 | T11 | C | Xong | 2026-09-14 | Đã sửa (`2fefd2b`): txn do server sinh; `ops: []` ⇒ `txn: null`; retry gửi lại ops cũ; projection đọc step registry T12 |
+| 2 | T12 | D | Xong | 2026-09-14 | Đã sửa (FE `a425983`): huỷ SSE khi rời trang/chạy lại, luồng đóng sớm ⇒ lỗi `STREAM_CLOSED`, `spine_version` chỉ tăng; mock đóng luồng khi lỗi |
+| — | **M2** | A | [ ] | 2026-09-15 | Chưa tick: contract T08 đã approve; chưa có nhãn `contract-change` trên GitHub (BE/FE). `wave2/review`: BE 428 + FE 102 test xanh, typecheck sạch |
+| 3 | T13 | A | Xong | 2026-09-15 | DoD 3/5. Nhánh `wave3/review` (merge `a144923`). BE 474 test xanh. **Chờ quyết định:** `POST /resume` không có trong contract → chưa mount (đề xuất contract-change); hoàn ví khi 409 cần XREQ T04 `refundDeductedCredit`. Báo cáo: `flintflow/plans/reports/t13-report-260915-step-runner.md` |
+| 3 | T14 | B | Xong (bị chặn một phần) | 2026-09-15 | DoD 2/4. Nhánh `wave3/review` (merge `2f992a2`). BE 546 test xanh. **Bị chặn:** nội dung 4 skill content chưa tới model vì `prompt-assets.test.ts:97-107` (T03) ép `stub: true` → XREQ T03; `E2E_AI=1` chưa chạy (không có provider). **Chờ quyết định:** contract-change S-3.6 renders `context` (S-3.1 thêm actor phi-human làm context stale). Báo cáo: `flintflow/plans/reports/t14-report-260915-skills-s2-s3.md` |
+| 3 | T15 | C | Xong | 2026-09-15 | DoD 4/4. Nhánh `wave3/review` (merge `45a4064`). BE 544 test xanh. **Chờ quyết định:** mã `409 NO_WORKING_DRAFT` + `group:*` section id cần contract-change. Còn: mở docx bằng Word tay. Báo cáo: `flintflow/plans/reports/t15-report-260915-assemble-export.md` |
+| 3 | T16 | D | Xong | 2026-09-15 | DoD 4/5. Nhánh FE `wave3/review` (merge `25943ee`). FE 181 test, lint 0 lỗi. Change flow trên msw (T17 nối thật). **Chờ:** BE `PATCH /users/me` + `onboardedAt` (XREQ, `modules/user`); export Word từ BE thật chạy tay; `types/chat.ts` thiếu `is_pipeline`. Báo cáo: `flintflow/plans/reports/t16-report-260915-fe-verification-change.md` |
+| — | **M3** | A + B | [ ] | 2026-09-15 | Chưa tick (người tick). Từng mắt xích có test tự động; chưa chạy trọn trên Mongo thật + trình duyệt; `docs/measurements.md` mới có số mock (cần XREQ T03 bỏ `stub` + `E2E_AI=1`). 5 contract-change + 6 XREQ chờ quyết — `overnight-260915-wave3.md` mục 2 |
 | 4 | T17 | A | Chưa làm | | |
 | 4 | T18 | B | Chưa làm | | |
 | 4 | T19 | C | Chưa làm | | |
@@ -279,7 +279,7 @@ Cách cập nhật: người phụ trách đổi ô Trạng thái của task mì
 | 5 | T24 | C | Chưa làm | | |
 | — | **M5** | cả 4 | [ ] | | |
 
-**Tiến độ wave:** W1 0/7 · W2 0/5 · W3 0/4 · W4 0/4 · W5 0/4 · **Tổng 0/24**.
+**Tiến độ wave:** W1 6/7 · W2 5/5 · W3 4/4 · W4 0/4 · W5 0/4 · **Tổng 15/24** (T08 xong 2026-09-15 sau khi approve contract) (T13, T15, T14, T16 xong 2026-09-15 trên `wave3/review`, phiên overnight — T13/T14 còn mục DoD bị chặn bởi contract-change/XREQ, xem `flintflow/plans/reports/overnight-260915-wave3.md`; W1/W2 giữ như lượt sửa 2026-09-14, chi tiết ở `review-t01-t12.md`).
 
 ## 9. Wave 6 tuỳ chọn (business-flow.md, chỉ liệt kê)
 

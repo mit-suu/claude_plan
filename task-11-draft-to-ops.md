@@ -1,6 +1,6 @@
 # Task 11 — Draft-to-ops + retry schema + context projection
 
-**Wave:** 2 · **Người phụ trách:** C · **Effort:** 6 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [ ] Xong
+**Wave:** 2 · **Người phụ trách:** C · **Effort:** 6 điểm · **Trạng thái:** [ ] Chưa làm  [x] Đang làm  [ ] Xong
 
 ## Mục tiêu
 Cầu nối AI sang op engine: dựng context cho một step bằng projection (chỉ field Sở hữu/Đọc/Suy dẫn + addendum liên quan + tài liệu upload theo budget), gọi skill draft, parse op batch, validate path/schema, gửi lại kèm lỗi tối đa 2 lần, rồi trả về cho user.
@@ -35,9 +35,11 @@ B5 (nạp toàn transcript + mọi section phase trước, prompt generic), D5 (
 - Hai hàm `buildStepContext`, `draftOps` dùng được độc lập với step runner.
 
 ## Tiêu chí hoàn thành (DoD)
-- [ ] 10 ca op T02 pass qua mock provider.
-- [ ] Retry đúng 2 lần rồi 422 kèm lỗi cụ thể; không bao giờ ghi raw text vào Spine.
-- [ ] Projection S-5.4@S-01 không chứa `nfrs[]`, `glossary[]`, transcript phase khác.
+- [x] 10 ca op T02 pass qua mock provider.
+- [x] Retry đúng 2 lần rồi 422 kèm lỗi cụ thể; không bao giờ ghi raw text vào Spine.
+- [x] Projection S-5.4@S-01 không chứa `nfrs[]`, `glossary[]`, transcript phase khác.
+
+> 2026-09-14: nhánh `feat/t10-t11-diagram-draft-ops`, commit riêng `t11:`. `STEP_SPECS` là bảng tạm (quyền ghi theo gốc path ở mức phase) cho tới khi T12 merge. Hai skill action `draft-to-ops`/`phase-intake` đã đủ nội dung từ T03 nên không sửa. `contextTokens` không ghi được vào `usage[]` vì schema đóng băng; `draftOps` trả giá trị này để T13 xử lý.
 
 ## Ghi chú / rủi ro
 - Chi phí input là rủi ro gốc (srs-spine §10); ghi `contextTokens` vào `usage[]` để T22 đo.

@@ -1,6 +1,6 @@
 # Task 01 — Spine schema, types, Mongoose model, repository
 
-**Wave:** 1 · **Người phụ trách:** A · **Effort:** 8 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [ ] Xong
+**Wave:** 1 · **Người phụ trách:** A · **Effort:** 8 điểm · **Trạng thái:** [ ] Chưa làm  [x] Đang làm  [ ] Xong
 
 ## Mục tiêu
 Dựng nền dữ liệu Spine đúng `srs-spine.md` §2: một document `Spine` cho mỗi project, quan hệ bằng khoá, `spine_version` tăng đơn điệu, lịch sử `changes[]`, `usage[]`, `baselines[]` tách collection. Đây là task critical path của Wave 1: mọi task Wave 2 phụ thuộc vào types/schema ở đây.
@@ -49,11 +49,11 @@ A1 (không có Spine), A6 (thiếu steps/progress/assumptions/flags/addendum/dia
 - Tài liệu ngắn `flintflow_be/src/modules/spine/README.md` mô tả quy ước path và versioning.
 
 ## Tiêu chí hoàn thành (DoD)
-- [ ] `npm run typecheck` xanh.
-- [ ] `spine.schema.test.ts`: Spine rỗng hợp lệ; fixture T02 (khi có) hợp lệ; enum sai bị từ chối.
-- [ ] `spine.repository.test.ts`: conflict trả 409; `nextSeq` liên tục.
-- [ ] `GET /projects/:id/spine` trả 200 cho chủ project, 404 cho người khác.
-- [ ] `assets/schema/srs-spine.schema.json` tồn tại và được commit.
+- [x] `npm run typecheck` xanh.
+- [x] `spine.schema.test.ts`: Spine rỗng hợp lệ; fixture T02 (khi có) hợp lệ; enum sai bị từ chối. *(test fixture T02 đang skipIf — chưa có `fixtures/`)*
+- [x] `spine.repository.test.ts`: conflict trả 409; `nextSeq` liên tục. *(model mock in-memory; Mongo thật ở T22)*
+- [x] `GET /projects/:id/spine` trả 200 cho chủ project, 404 cho người khác. *(test mức controller + route; chưa curl trên DB thật)*
+- [ ] `assets/schema/srs-spine.schema.json` tồn tại và được commit. *(file đã sinh, chưa commit)*
 
 ## Ghi chú / rủi ro
 - Merge trước tiên trong Wave 1 (mục tiêu ≤ 3 ngày) để T02/T07 kịp đồng bộ.

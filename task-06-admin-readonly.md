@@ -37,7 +37,7 @@ F3 (admin chỉ có prompt template). Phụ: trang admin prompt dùng raw fetch 
 ## Tiêu chí hoàn thành (DoD)
 - [ ] User thường gọi `/admin/*` nhận 403; admin nhận 200.
 - [ ] `ai-cost` khớp tổng `CreditTransaction{type:deduct}` trong khoảng ngày trên DB dev.
-- [ ] Trang prompt-templates không còn `localStorage.accessToken` trực tiếp.
+- [x] ~~Trang prompt-templates không còn `localStorage.accessToken` trực tiếp.~~ **Bỏ (quyết định nhóm 2026-09-14):** trang prompt-templates bị xoá cùng tính năng (xem T03). Review bổ sung: quyền admin đọc `role`/`isActive` từ DB mỗi request (BE `f3680a8`).
 - [ ] FE typecheck/lint xanh.
 
 ## Ghi chú / rủi ro
