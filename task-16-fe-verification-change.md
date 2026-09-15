@@ -1,6 +1,6 @@
 # Task 16 — FE Verification & Change panel + DocumentPane từ BE + Export UI + Onboarding
 
-**Wave:** 3 · **Người phụ trách:** D · **Effort:** 10 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [ ] Xong
+**Wave:** 3 · **Người phụ trách:** D · **Effort:** 10 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [x] Xong (2026-09-15, nhánh `wave3/overnight`; export từ BE thật + `PATCH /users/me` chờ — xem `flintflow/plans/reports/t16-report-260915-fe-verification-change.md`)
 
 ## Mục tiêu
 Thay VerificationPane demo bằng dữ liệu thật (cờ đỏ/vàng, waive, điểm sẵn sàng), thêm Change panel (sửa qua chat với preview diff, hoà giải, undo, traceability), Document pane render `RenderedDocument` từ BE, Export UI theo §6.5, read-only view (UC 1.14), onboarding (UC 1.12).
@@ -40,11 +40,11 @@ C6 (demo hardcode), C3 phần FE (impact/stale/diff), C8 (export UI), C1 phần 
 - Verification & Change panel thật; export UI; read-only view; onboarding.
 
 ## Tiêu chí hoàn thành (DoD)
-- [ ] FlagsPanel hiển thị cờ từ BE fixture; waive luật không waive được không có nút; waive hợp lệ cập nhật danh sách.
-- [ ] DocumentPane render `RenderedDocument` fixture đủ 5 chương; chip stale đúng.
-- [ ] Export Word draft tải về từ BE thật; chưa assemble hiện lý do + link S-8.2.
-- [ ] ChangePanel chạy trọn trên mock; `/view` ẩn đúng các trường.
-- [ ] typecheck/lint/test xanh.
+- [x] FlagsPanel hiển thị cờ từ BE fixture; waive luật không waive được không có nút; waive hợp lệ cập nhật danh sách. (`FlagsPanel.test.tsx`, `useFlags.test.ts` — msw theo fixture)
+- [x] DocumentPane render `RenderedDocument` fixture đủ 5 chương; chip stale đúng. (`DocumentPane.test.tsx`)
+- [ ] Export Word draft tải về từ BE thật; chưa assemble hiện lý do + link S-8.2. (msw: `ExportPanel.test.tsx`, `handlers.change-flow.test.ts`; BE thật cần chạy tay)
+- [x] ChangePanel chạy trọn trên mock; `/view` ẩn đúng các trường. (`ChangePanel.test.tsx`, `view/page.test.tsx`)
+- [x] typecheck/lint/test xanh. (tsc 0 lỗi; lint 0 lỗi/14 warning baseline; 27 file / 181 test)
 
 ## Ghi chú / rủi ro
 - Không có editor văn bản; chỉ NamesGlossaryPanel (T12) là form (§2.3).

@@ -266,8 +266,8 @@ Cách cập nhật: người phụ trách đổi ô Trạng thái của task mì
 | 3 | T13 | A | Xong | 2026-09-15 | DoD 3/5. Nhánh `wave3/overnight` (merge `09768dd`). BE 474 test xanh. **Chờ quyết định:** `POST /resume` không có trong contract → chưa mount (đề xuất contract-change); hoàn ví khi 409 cần XREQ T04 `refundDeductedCredit`. Báo cáo: `flintflow/plans/reports/t13-report-260915-step-runner.md` |
 | 3 | T14 | B | Xong (bị chặn một phần) | 2026-09-15 | DoD 2/4. Nhánh `wave3/overnight` (merge `7f5a61e`). BE 546 test xanh. **Bị chặn:** nội dung 4 skill content chưa tới model vì `prompt-assets.test.ts:97-107` (T03) ép `stub: true` → XREQ T03; `E2E_AI=1` chưa chạy (không có provider). **Chờ quyết định:** contract-change S-3.6 renders `context` (S-3.1 thêm actor phi-human làm context stale). Báo cáo: `flintflow/plans/reports/t14-report-260915-skills-s2-s3.md` |
 | 3 | T15 | C | Xong | 2026-09-15 | DoD 4/4. Nhánh `wave3/overnight` (merge `ef44ab0`). BE 544 test xanh. **Chờ quyết định:** mã `409 NO_WORKING_DRAFT` + `group:*` section id cần contract-change. Còn: mở docx bằng Word tay. Báo cáo: `flintflow/plans/reports/t15-report-260915-assemble-export.md` |
-| 3 | T16 | D | Chưa làm | | |
-| — | **M3** | A + B | [ ] | | |
+| 3 | T16 | D | Xong | 2026-09-15 | DoD 4/5. Nhánh FE `wave3/overnight` (merge `c835215`). FE 181 test, lint 0 lỗi. Change flow trên msw (T17 nối thật). **Chờ:** BE `PATCH /users/me` + `onboardedAt` (XREQ, `modules/user`); export Word từ BE thật chạy tay; `types/chat.ts` thiếu `is_pipeline`. Báo cáo: `flintflow/plans/reports/t16-report-260915-fe-verification-change.md` |
+| — | **M3** | A + B | [ ] | 2026-09-15 | Chưa tick (người tick). Từng mắt xích có test tự động; chưa chạy trọn trên Mongo thật + trình duyệt; `docs/measurements.md` mới có số mock (cần XREQ T03 bỏ `stub` + `E2E_AI=1`). 5 contract-change + 6 XREQ chờ quyết — `overnight-260915-wave3.md` mục 2 |
 | 4 | T17 | A | Chưa làm | | |
 | 4 | T18 | B | Chưa làm | | |
 | 4 | T19 | C | Chưa làm | | |
@@ -279,7 +279,7 @@ Cách cập nhật: người phụ trách đổi ô Trạng thái của task mì
 | 5 | T24 | C | Chưa làm | | |
 | — | **M5** | cả 4 | [ ] | | |
 
-**Tiến độ wave:** W1 6/7 · W2 4/5 · W3 3/4 · W4 0/4 · W5 0/4 · **Tổng 13/24** (T13, T15, T14 xong 2026-09-15 trên `wave3/overnight`, phiên overnight; W1/W2 giữ như lượt sửa 2026-09-14, chi tiết ở `review-t01-t12.md`).
+**Tiến độ wave:** W1 6/7 · W2 4/5 · W3 4/4 · W4 0/4 · W5 0/4 · **Tổng 14/24** (T13, T15, T14, T16 xong 2026-09-15 trên `wave3/overnight`, phiên overnight — T13/T14 còn mục DoD bị chặn bởi contract-change/XREQ, xem `flintflow/plans/reports/overnight-260915-wave3.md`; W1/W2 giữ như lượt sửa 2026-09-14, chi tiết ở `review-t01-t12.md`).
 
 ## 9. Wave 6 tuỳ chọn (business-flow.md, chỉ liệt kê)
 
