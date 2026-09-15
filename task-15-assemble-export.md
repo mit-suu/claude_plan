@@ -41,7 +41,9 @@ F2 (export), C8 (export không bị chặn, watermark DRAFT), A3 (section theo t
 - [x] Snapshot `RenderedDocument` fixture ổn định. (`assemble.test.ts` + snapshot fixture 19 màn)
 - [x] Docx từ fixture: 5 chương, §I có dòng từ `changes[]`, ảnh 5 diagram nhúng, watermark khi draft. (`export.e2e.test.ts` giải nén docx; chưa mở bằng Word tay)
 - [x] Không chuỗi số section cứng trong field (test quét regex số dạng `3.x` trong prose fixture). (`export.e2e.test.ts`)
-- [x] `export/word` khi chưa assemble trả 409 với hint. (`render.controller.test.ts`; mã `NO_WORKING_DRAFT` chưa có trong contract → đề xuất contract-change)
+- [x] `export/word` khi chưa assemble trả 409 với hint. (`render.controller.test.ts`; `NO_WORKING_DRAFT` + `group:*` vào contract 2026-09-15 `bc1d5c4`)
+
+> 2026-09-15 chạy thật trên Mongo local qua API: fixture 19 màn `POST /diagrams/all/render` (9/9 ok) → `/assemble` (114 section) → `/export/word` 436 KB: 5 chương + §I, 9 ảnh sơ đồ thật, watermark DRAFT, 0 cờ đỏ. Phát hiện: khi PNG sơ đồ thiếu, `/assemble` trả 200 nhưng không ghi cache ⇒ `/document` 409 `NO_WORKING_DRAFT` (ghi `docs/spec-gaps.md`).
 
 ## Ghi chú / rủi ro
 - `fixed:I` và `fixed:5.5` không tham gia stale/điểm sẵn sàng (§4.2).

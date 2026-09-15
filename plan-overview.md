@@ -263,11 +263,11 @@ Cách cập nhật: người phụ trách đổi ô Trạng thái của task mì
 | 2 | T11 | C | Xong | 2026-09-14 | Đã sửa (`2fefd2b`): txn do server sinh; `ops: []` ⇒ `txn: null`; retry gửi lại ops cũ; projection đọc step registry T12 |
 | 2 | T12 | D | Xong | 2026-09-14 | Đã sửa (FE `a425983`): huỷ SSE khi rời trang/chạy lại, luồng đóng sớm ⇒ lỗi `STREAM_CLOSED`, `spine_version` chỉ tăng; mock đóng luồng khi lỗi |
 | — | **M2** | A | [ ] | 2026-09-15 | Chưa tick: contract T08 đã approve; chưa có nhãn `contract-change` trên GitHub (BE/FE). `wave2/review`: BE 428 + FE 102 test xanh, typecheck sạch |
-| 3 | T13 | A | Xong | 2026-09-15 | DoD 3/5. Nhánh `wave3/review` (merge `a144923`). BE 474 test xanh. **Chờ quyết định:** `POST /resume` không có trong contract → chưa mount (đề xuất contract-change); hoàn ví khi 409 cần XREQ T04 `refundDeductedCredit`. Báo cáo: `flintflow/plans/reports/t13-report-260915-step-runner.md` |
-| 3 | T14 | B | Xong (bị chặn một phần) | 2026-09-15 | DoD 2/4. Nhánh `wave3/review` (merge `2f992a2`). BE 546 test xanh. **Bị chặn:** nội dung 4 skill content chưa tới model vì `prompt-assets.test.ts:97-107` (T03) ép `stub: true` → XREQ T03; `E2E_AI=1` chưa chạy (không có provider). **Chờ quyết định:** contract-change S-3.6 renders `context` (S-3.1 thêm actor phi-human làm context stale). Báo cáo: `flintflow/plans/reports/t14-report-260915-skills-s2-s3.md` |
-| 3 | T15 | C | Xong | 2026-09-15 | DoD 4/4. Nhánh `wave3/review` (merge `45a4064`). BE 544 test xanh. **Chờ quyết định:** mã `409 NO_WORKING_DRAFT` + `group:*` section id cần contract-change. Còn: mở docx bằng Word tay. Báo cáo: `flintflow/plans/reports/t15-report-260915-assemble-export.md` |
-| 3 | T16 | D | Xong | 2026-09-15 | DoD 4/5. Nhánh FE `wave3/review` (merge `25943ee`). FE 181 test, lint 0 lỗi. Change flow trên msw (T17 nối thật). **Chờ:** BE `PATCH /users/me` + `onboardedAt` (XREQ, `modules/user`); export Word từ BE thật chạy tay; `types/chat.ts` thiếu `is_pipeline`. Báo cáo: `flintflow/plans/reports/t16-report-260915-fe-verification-change.md` |
-| — | **M3** | A + B | [ ] | 2026-09-15 | Chưa tick (người tick). Từng mắt xích có test tự động; chưa chạy trọn trên Mongo thật + trình duyệt; `docs/measurements.md` mới có số mock (cần XREQ T03 bỏ `stub` + `E2E_AI=1`). 5 contract-change + 6 XREQ chờ quyết — `overnight-260915-wave3.md` mục 2 |
+| 3 | T13 | A | Xong | 2026-09-15 | DoD 5/5. Nhánh `wave3/decisions` (BE). Đã chốt: `POST /resume` thành endpoint 24 (`bc1d5c4`), `/gate` bắt buộc `session_id`; `refundDeductedCredit` hoàn ví khi 409 (`4f6e74a`). BE 556 test xanh |
+| 3 | T14 | B | Xong (bị chặn một phần) | 2026-09-15 | DoD 2/4. Đã bỏ `stub` (`fa94afc`), S-3.6 render lại `context` (`bc1d5c4`). Chạy thật qua API với GLM-5.3-Flash: 7/12 step (tới S-3.1), sửa 6 lỗi trên đường đi (GLM thinking/token, assumptions). **Bị chặn:** S-3.2 GLM suy nghĩ > 50K ký tự, hết token 3/3 lượt → **cần quyết định model cho skill `actors-and-usecases`**. Số đo thật: `docs/measurements.md` |
+| 3 | T15 | C | Xong | 2026-09-15 | DoD 4/4. `NO_WORKING_DRAFT` + `group:*` vào contract (`bc1d5c4`). Chạy thật: fixture 19 màn render 9 sơ đồ → assemble 114 section → docx 436 KB (5 chương + §I, 9 ảnh thật, watermark DRAFT, 0 cờ đỏ). Phát hiện: thiếu PNG thì assemble 200 nhưng không cache (spec-gaps) |
+| 3 | T16 | D | Xong | 2026-09-15 | DoD 4/5. Nhánh FE `wave3/decisions` (`aba85d5`): `is_pipeline`/`onboardedAt` chính thức, gate gửi `session_id`, `/resume` khi mở workspace; BE `PATCH /users/me` (`a100cc4`). FE 184 test, lint 0 lỗi. **Còn:** bấm Export trên trình duyệt với BE thật |
+| — | **M3** | A + B | [ ] | 2026-09-15 | Chưa tick. Đã có: 5 contract-change + 6 XREQ chốt (spec-gaps), luồng `seed:fixture → render → assemble → Word` chạy trọn qua API trên Mongo thật; S-2/S-3 qua API với provider thật 7/12 step, số token thật trong `docs/measurements.md`. **Còn:** S-3.2…S-3.6 (chờ chọn model), kiểm tay trên trình duyệt |
 | 4 | T17 | A | Chưa làm | | |
 | 4 | T18 | B | Chưa làm | | |
 | 4 | T19 | C | Chưa làm | | |
@@ -279,7 +279,7 @@ Cách cập nhật: người phụ trách đổi ô Trạng thái của task mì
 | 5 | T24 | C | Chưa làm | | |
 | — | **M5** | cả 4 | [ ] | | |
 
-**Tiến độ wave:** W1 6/7 · W2 5/5 · W3 4/4 · W4 0/4 · W5 0/4 · **Tổng 15/24** (T08 xong 2026-09-15 sau khi approve contract) (T13, T15, T14, T16 xong 2026-09-15 trên `wave3/review`, phiên overnight — T13/T14 còn mục DoD bị chặn bởi contract-change/XREQ, xem `flintflow/plans/reports/overnight-260915-wave3.md`; W1/W2 giữ như lượt sửa 2026-09-14, chi tiết ở `review-t01-t12.md`).
+**Tiến độ wave:** W1 6/7 · W2 5/5 · W3 4/4 · W4 0/4 · W5 0/4 · **Tổng 15/24** (T08 xong 2026-09-15 sau khi approve contract; W3: contract-change/XREQ chốt 2026-09-15 trên nhánh `wave3/decisions` BE + FE, T14 còn chặn ở model S-3; W1/W2 giữ như lượt sửa 2026-09-14, chi tiết ở `review-t01-t12.md`).
 
 ## 9. Wave 6 tuỳ chọn (business-flow.md, chỉ liệt kê)
 

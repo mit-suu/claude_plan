@@ -42,9 +42,9 @@ B1 (không có step), B4 (gate), B6 (sinh tuần tự trong khung step), B7 (kho
 ## Tiêu chí hoàn thành (DoD)
 - [x] S-3.1 đến S-3.6 chạy trọn qua API với mock provider; `steps[]`, `changes[]`, `usage[]` đúng. (`step-runner.test.ts`, `pipeline.controller.test.ts` — mức service + controller mock, chưa có supertest)
 - [x] Regenerate lần 4 trả `REGENERATE_LIMIT`; lượt 9 trả `CALL_LIMIT`. (`gate.service.test.ts`)
-- [ ] 2 tab: txn thứ hai 409, credit refund, không tiêu trần. (409 + không tiêu trần có test; ví thật chưa hoàn — chờ XREQ T04 `refundDeductedCredit`, `TODO(XREQ-local-1)` meter.service.ts)
+- [x] 2 tab: txn thứ hai 409, credit refund, không tiêu trần. (2026-09-15 `wave3/decisions` `4f6e74a`: `refundDeductedCredit` T04 hoàn ví, meter claim usage trước khi hoàn; `step-runner.test.ts`, `meter.service.test.ts`, `credit-reservation.test.ts`)
 - [x] Session không pipeline gọi `/run` trả 403 `NOT_PIPELINE_SESSION`.
-- [ ] Đóng giữa Draft rồi `POST /resume` đưa Spine về trạng thái trước step. (`resume.test.ts` mức service; endpoint chưa mount — không có trong `pipeline-contract.md`, chờ PR contract-change)
+- [x] Đóng giữa Draft rồi `POST /resume` đưa Spine về trạng thái trước step. (2026-09-15 contract-change `bc1d5c4`: endpoint 24 mount + `pipeline.controller.test.ts`; `resume.test.ts` mức service; FE `useSpine` gọi `/resume` khi mở workspace)
 
 ## Ghi chú / rủi ro
 - `[A]/[P]` Party Mode không làm (Phases §9.1).
