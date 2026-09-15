@@ -1,6 +1,6 @@
 # Task 15 — Assemble S-8.2 / S-8.3 / S-8.4 + nối export Word
 
-**Wave:** 3 · **Người phụ trách:** C · **Effort:** 9 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [ ] Xong
+**Wave:** 3 · **Người phụ trách:** C · **Effort:** 9 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [x] Xong (2026-09-15, nhánh `wave3/overnight`; `NO_WORKING_DRAFT` chờ contract-change — xem `flintflow/plans/reports/t15-report-260915-assemble-export.md`)
 
 ## Mục tiêu
 Phases §9.3 bước 3: một luồng đi trọn fixture, render section từ field theo bảng §4, `RenderedDocument`, file Word (T05). Có §I Record of Changes từ `changes[]`, đánh số §3.x.y theo `order`, consistency pass tất định.
@@ -38,10 +38,10 @@ F2 (export), C8 (export không bị chặn, watermark DRAFT), A3 (section theo t
 - Endpoint document/export chạy trên fixture; docx đủ 5 chương.
 
 ## Tiêu chí hoàn thành (DoD)
-- [ ] Snapshot `RenderedDocument` fixture ổn định.
-- [ ] Docx từ fixture: 5 chương, §I có dòng từ `changes[]`, ảnh 5 diagram nhúng, watermark khi draft.
-- [ ] Không chuỗi số section cứng trong field (test quét regex số dạng `3.x` trong prose fixture).
-- [ ] `export/word` khi chưa assemble trả 409 với hint.
+- [x] Snapshot `RenderedDocument` fixture ổn định. (`assemble.test.ts` + snapshot fixture 19 màn)
+- [x] Docx từ fixture: 5 chương, §I có dòng từ `changes[]`, ảnh 5 diagram nhúng, watermark khi draft. (`export.e2e.test.ts` giải nén docx; chưa mở bằng Word tay)
+- [x] Không chuỗi số section cứng trong field (test quét regex số dạng `3.x` trong prose fixture). (`export.e2e.test.ts`)
+- [x] `export/word` khi chưa assemble trả 409 với hint. (`render.controller.test.ts`; mã `NO_WORKING_DRAFT` chưa có trong contract → đề xuất contract-change)
 
 ## Ghi chú / rủi ro
 - `fixed:I` và `fixed:5.5` không tham gia stale/điểm sẵn sàng (§4.2).
