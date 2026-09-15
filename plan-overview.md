@@ -253,10 +253,10 @@ Cách cập nhật: người phụ trách đổi ô Trạng thái của task mì
 | 1 | T02 | B | Xong | 2026-09-14 | Fixture + 10 ca op xanh. Đã sửa (`1f27ec4`): seed ghi qua model `Spine` với `projectId`, validate `spineSchema`. Chưa chạy seed trên Mongo thật |
 | 1 | T03 | B | Xong | 2026-09-14 | 30 skill + registry + ActionType. **Chốt: bỏ tính năng prompt-template** (không khôi phục route 410). Đã sửa (`70e807e`): startup nạp skill index; chặn action diagram đã archive |
 | 1 | T04 | C | Xong | 2026-09-14 | **Chốt: dùng `payment_service` thật** (VietQR). Đã sửa (`85b8918` + FE `befce78`): `deductCredit` hoàn claim khi ví lệch, nhánh expired trừ theo số khả dụng; gói trả phí chỉ kích hoạt qua checkout `plan:<id>` |
-| 1 | T05 | A | Đang làm | 2026-09-14 | Đã sửa (`2efb86d` + FE `d12b35a`): body `/export` 15mb, nhận nhầm bảng/numbered list; FE `RenderedDocument.projectId`. **Còn:** mở file docx bằng Word/LibreOffice (máy review chưa cài) |
+| 1 | T05 | A | Xong | 2026-09-15 | DoD 3/3. Đã sửa (`2efb86d` + FE `d12b35a`): body `/export` 15mb, nhận nhầm bảng/numbered list; FE `RenderedDocument.projectId`. 2026-09-15 user mở docx bằng Word không lỗi |
 | 1 | T06 | D | Xong | 2026-09-14 | 403/200 đúng. Trang prompt-templates bỏ theo quyết định ở T03. Đã sửa (`f3680a8`): quyền admin đọc role/`isActive` từ DB mỗi request. Còn: ai-cost chưa đối chiếu DB thật |
 | 1 | T07 | D | Xong | 2026-09-14 | typecheck/lint/test xanh; `build` xanh trên `develop` a3f9c3d (2026-09-14 23:00). Còn Google client ID thật trong `.env.local` (không track) |
-| — | **M1** | A | [ ] | 2026-09-15 | Chưa tick: còn T05 mở file docx bằng Word/LibreOffice (docx đã giải nén kiểm tự động: 5 chương + §I, ảnh, watermark). Blocker CI FE `npm ci` đã gỡ — PR #22 (FLF-152) thêm `@emnapi/core`, `@emnapi/runtime` vào `package-lock.json`, có trên `develop` |
+| — | **M1** | A | [x] | 2026-09-15 | **Tick 2026-09-15.** T05 xong (docx mở bằng Word). Blocker CI FE `npm ci` đã gỡ — PR #22 (FLF-152) thêm `@emnapi/core`, `@emnapi/runtime` vào `package-lock.json`. Toàn bộ W1 trên `develop`: BE 567 + FE 184 test xanh local (trạng thái CI GitHub chưa xem được do máy không có `gh`) |
 | 2 | T08 | A | Xong | 2026-09-15 | Đã sửa (`f7ccb3d`): ghi Spine+changes trong Mongo transaction (standalone: lưu Spine trước, cấp lại seq); `revert_conflict`; `path_not_writable`; lô không đổi không tăng version; contract cập nhật. `pipeline-contract.md` đã approve 2026-09-15 |
 | 2 | T09 | B | Xong | 2026-09-14 | Đã sửa (`e9583a5`): recompute thường không đóng cờ luật S-9; kiểm quyền trước validate; bỏ spread O(n²) |
 | 2 | T10 | C | Xong | 2026-09-14 | Đã sửa (`7a2c1e5`): so theo `source_hash` + `force`; lưu file sau transaction, xoá file cũ; bỏ `dropErrorLine` và marker "syntax error" chung |
@@ -279,8 +279,8 @@ Cách cập nhật: người phụ trách đổi ô Trạng thái của task mì
 | 5 | T24 | C | Chưa làm | | |
 | — | **M5** | cả 4 | [ ] | | |
 
-**Tiến độ wave:** W1 6/7 · W2 5/5 · W3 4/4 · W4 0/4 · W5 0/4 · **Tổng 15/24** · Merge point: M1 [ ] · M2 [ ] · **M3 [x]** · M4 [ ] · M5 [ ].
-Cập nhật 2026-09-15: W1–W3 đã trên `develop` (BE `323e6b4` PR #36, FE `ce8e2ac` PR #24); kiểm lại trên `develop`: BE typecheck sạch + 567 test, FE typecheck sạch + 184 test + lint 0 lỗi. Việc treo trước Wave 4: **T05** mở docx bằng Word (M1), **nhãn `contract-change`** trên GitHub (M2); spec-gaps cho W4: `/baselines` 404 (T19), CORS `Content-Disposition` (T15/T24), assemble không cache khi thiếu PNG (T15). Chi tiết W1/W2 ở `review-t01-t12.md`.
+**Tiến độ wave:** W1 7/7 · W2 5/5 · W3 4/4 · W4 0/4 · W5 0/4 · **Tổng 16/24** · Merge point: **M1 [x]** · M2 [ ] · **M3 [x]** · M4 [ ] · M5 [ ].
+Cập nhật 2026-09-15: W1–W3 đã trên `develop` (BE `323e6b4` PR #36, FE `ce8e2ac` PR #24); kiểm lại trên `develop`: BE typecheck sạch + 567 test, FE typecheck sạch + 184 test + lint 0 lỗi. Việc treo trước Wave 4: **nhãn `contract-change`** trên GitHub (M2); spec-gaps cho W4: `/baselines` 404 (T19), CORS `Content-Disposition` (T15/T24), assemble không cache khi thiếu PNG (T15). Chi tiết W1/W2 ở `review-t01-t12.md`.
 
 ## 9. Wave 6 tuỳ chọn (business-flow.md, chỉ liệt kê)
 
