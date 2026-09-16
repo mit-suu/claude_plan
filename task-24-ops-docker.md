@@ -1,6 +1,6 @@
 # Task 24 — Vận hành: docker compose BE/FE, PlantUML, env, health, hardening
 
-**Wave:** 5 · **Người phụ trách:** C · **Effort:** 4 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [ ] Xong
+**Wave:** 5 · **Người phụ trách:** C · **Effort:** 4 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [x] Xong (2026-09-16)
 
 ## Mục tiêu
 Chạy trọn hệ thống mới bằng một lệnh `docker compose up`, đủ biến môi trường mới, health check báo Mongo/PlantUML, gỡ URL/secret hardcode.
@@ -34,10 +34,10 @@ Nợ kỹ thuật vận hành (URL Modal hardcode, Google client ID trong repo, 
 - `docker compose up` chạy BE/FE/Mongo/PlantUML; health xanh; không còn secret/URL hardcode.
 
 ## Tiêu chí hoàn thành (DoD)
-- [ ] `docker compose up -d && curl localhost:5000/health` trả `mongo: ok, plantuml: ok`.
-- [ ] `grep -rn "modal.direct" flintflow_be/src` rỗng; `git ls-files | grep .env.local` rỗng.
-- [ ] e2e T23 pass trong compose.
-- [ ] `docs/ops.md` đủ mục.
+- [x] `docker compose up -d && curl localhost:5000/health` trả `mongo: ok, plantuml: ok`.
+- [x] `grep -rn "modal.direct" flintflow_be/src` rỗng; `git ls-files | grep .env.local` rỗng (chưa từng có trong lịch sử git — kiểm bằng `git log --all -S`).
+- [x] e2e T23 pass trong compose (2/2, FE :3050 trên BE :5050).
+- [x] `docs/ops.md` đủ mục.
 
 ## Ghi chú / rủi ro
 - Nếu replica set 1 node gây chậm dev, giữ fallback standalone đã có trong `ai-action.service.ts`; op engine chỉ cần `findOneAndUpdate` có điều kiện, không cần transaction đa document.
