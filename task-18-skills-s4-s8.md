@@ -1,6 +1,6 @@
 # Task 18 — Content skill S-4, S-5 (loop theo màn), S-6, S-7, S-8.1
 
-**Wave:** 4 · **Người phụ trách:** B · **Effort:** 10 điểm · **Trạng thái:** [ ] Chưa làm  [x] Đang làm (mock xong, chờ `E2E_AI=1`)  [ ] Xong · nhánh `feat/FLF-158-skills-s4-s8`
+**Wave:** 4 · **Người phụ trách:** B · **Effort:** 10 điểm · **Trạng thái:** [ ] Chưa làm  [x] Đang làm (mock xong, chờ lượt chạy provider thật)  [ ] Xong · nhánh `feat/FLF-158-skills-s4-s8`
 
 ## Mục tiêu
 Mở rộng ngang các phase còn lại (Phases §9.3 bước 5) trên khung runner đã có: S-4 (chốt N, screen_queue, flow, authorization, non-screen, ERD), S-5 lặp theo màn (chia lô ≤ 6 function, chỉ 3–5 màn cốt lõi, còn lại placeholder), S-6 NFR có số, S-7 suy dẫn, S-8.1 glossary.
@@ -42,7 +42,7 @@ B1 (không có vòng lặp theo màn / N), B5 (context), A3 (thiếu `function:*
 
 ## Tiêu chí hoàn thành (DoD)
 - [x] Mock e2e S-4.1 → S-8.1 xanh (`s4-s8.e2e.test.ts`); N = 4 màn + vòng `@nonscreen` ⇒ `totalSteps = 51 + 5×5 = 76`.
-- [ ] `E2E_AI=1`: **chưa chạy** — phiên này không có API key provider. Ca test đã viết và `skipIf` đúng biến môi trường; trên mock thì cả hai điều kiện đã xanh (0 cờ đỏ không waive được, `nfr_missing_number` = 0).
+- [ ] `E2E_AI=1`: **chưa chạy**. Provider có sẵn, nhưng nhánh test này (khung của T14) không chạy được như đang viết: `executeAiAction` cần Mongo thật để reserve/deduct credit và ghi `AiActionLog`, mà tiến trình vitest không nối Mongo — ghi ở `docs/spec-gaps.md` (commit `bc80459`). Trên mock thì cả hai điều kiện đã xanh (0 cờ đỏ không waive được, `nfr_missing_number` = 0). Cách chạy thật đề xuất: qua API trên BE thật, như T14 đã làm cho run12–20.
 - [x] Màn 15 function chia **6 + 6 + 3** lượt cho cả S-5.2 và S-5.4, các lô rời nhau và phủ đủ; màn 2 function vẫn một lượt. `5 × N` step không đổi (chia lô nằm trong step).
 - [x] Màn `placeholder` giữ nguyên khung `functions[]` do S-4.1 sinh, `nextStep` bỏ qua vòng của nó, và không có cờ `screen_pending_at_baseline` nào mở.
 
@@ -58,4 +58,4 @@ B1 (không có vòng lặp theo màn / N), B5 (context), A3 (thiếu `function:*
 - 17 fixture op-case; `s-5.2/s-5.4` là template `${fn}` mở theo đúng lô runner đưa vào projection.
 - BE: typecheck sạch, **570 test xanh / 14 skip** (develop trước đó 567; +3 ca của file e2e mới).
 - Số đo token/lượt gọi từng step ở `docs/measurements.md`; 0/46 lượt phải retry schema (mock).
-- Việc còn lại: chạy `E2E_AI=1` khi có key, ghi tỉ lệ retry thật vào `docs/measurements.md`.
+- Việc còn lại: chốt cách chạy provider thật (qua API trên BE thật — khung `E2E_AI=1` của vitest không nối Mongo), chạy S-4.1 → S-8.1, ghi số + tỉ lệ retry thật vào `docs/measurements.md`.

@@ -1,7 +1,7 @@
 # BÁO CÁO TASK T18 — Content skill S-4, S-5 (loop theo màn), S-6, S-7, S-8.1 · Wave 4 · Người: B · Ngày: 2026-09-16
 
 ## 1. Trạng thái
-- Trạng thái: **Đang làm** — toàn bộ code + e2e mock đã xong; chỉ còn lượt chạy `E2E_AI=1` (phiên này không có API key provider)
+- Trạng thái: **Đang làm** — toàn bộ code + e2e mock đã xong; còn lượt chạy với provider thật. Provider **có sẵn** trong phiên này (đã dùng để kiểm T17), nhưng nhánh `E2E_AI=1` như đang viết không chạy được — xem mục 7.
 - Nhánh: `feat/FLF-158-skills-s4-s8` · Commit cuối: `27c0008` · PR: chưa mở (chờ phương án merge/push)
 - % ước lượng hoàn thành: 90% · Effort đã dùng / ước lượng: 9 / 10 điểm
 
@@ -11,7 +11,7 @@
 | 1 | S-4.x skill + runner chốt N; test `screen_queue` và bất biến 8 | Xong — 4 skill S-4; e2e kiểm `screen_queue`, `totalSteps = 51 + 5×5`; bất biến 8 không bị chạm vì màn thêm ở phase S-4 |
 | 2 | S-5 loop: runner + `function-detail` chia lô; test màn 15 function thành 3 lượt | Xong — `FUNCTION_BATCH_SIZE = 6`, màn 15 function chia **6 + 6 + 3** cho cả S-5.2 và S-5.4, lô rời nhau |
 | 3 | S-6, S-7, S-8.1 skill | Xong — `nfr-quality-attributes` (+ `references/thresholds.md`), `appendix-content`, `glossary` |
-| 4 | E2E mock rồi `E2E_AI=1` trên fixture minimal + kết quả T14 | **Một phần** — mock xanh; `E2E_AI=1` đã viết, `skipIf` đúng biến môi trường, **chưa chạy** (thiếu key) |
+| 4 | E2E mock rồi `E2E_AI=1` trên fixture minimal + kết quả T14 | **Một phần** — mock xanh; `E2E_AI=1` đã viết, `skipIf` đúng biến môi trường, **chưa chạy**: khung test (của T14) không nối Mongo nên `executeAiAction` không reserve credit được (mục 7) |
 | 5 | Measurements; ghi tỉ lệ retry | Xong cho mock — bảng token/lượt gọi từng step trong `docs/measurements.md`, retry **0/46**; số thật chờ lượt `E2E_AI=1` |
 
 ## 3. File đã thay đổi (đối chiếu bảng vùng sở hữu trong coding-rules.md mục 2)
@@ -58,7 +58,7 @@ Tổng: **35 file · +2912 / −103** (`git diff --stat develop...HEAD`)
        Tests  570 passed | 14 skipped (584)
     Duration  9.50s
   ```
-  (develop trước đó: 567 test; +3 ca của `s4-s8.e2e.test.ts`). Test skip thêm **1** so với develop: ca `E2E_AI=1` của T18 — lý do: **không có API key provider trong phiên này**, không phải skip để né lỗi.
+  (develop trước đó: 567 test; +3 ca của `s4-s8.e2e.test.ts`). Test skip thêm **1** so với develop: ca `E2E_AI=1` của T18 — lý do ghi ở mục 7, không phải skip để né lỗi.
 - File e2e của task: `npx vitest run src/modules/pipeline/skills/s4-s8.e2e.test.ts` → `3 passed | 1 skipped (4)`.
 - Bằng chứng chia lô (in ra từ chính lượt chạy):
   ```
@@ -67,7 +67,7 @@ Tổng: **35 file · +2912 / −103** (`git diff --stat develop...HEAD`)
                                   {"step":"S-5.2@S92","n":2},{"step":"S-5.4@S92","n":2}, ...]
   ```
 - Số dòng từng SKILL.md (trần 150): screens-and-flow 111 · authorization-matrix 101 · non-screen-functions 103 · entities-erd 102 · function-detail 128 · nfr-quality-attributes 111 · appendix-content 120 · glossary 102.
-- DoD trong file task: **3/4 tick**. Mục chưa tick: `E2E_AI=1` — chưa chạy, thiếu key.
+- DoD trong file task: **3/4 tick**. Mục chưa tick: `E2E_AI=1` — chưa chạy (mục 7).
 
 ## 7. Bị chặn / cần quyết định
 | Vấn đề | Cần ai | Đề xuất của tôi | Mức khẩn |
