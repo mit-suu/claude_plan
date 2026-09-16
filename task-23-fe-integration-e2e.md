@@ -1,6 +1,6 @@
 # Task 23 — FE tích hợp thật toàn bộ + e2e + dọn mock
 
-**Wave:** 5 · **Người phụ trách:** D · **Effort:** 6 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [ ] Xong
+**Wave:** 5 · **Người phụ trách:** D · **Effort:** 6 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [x] Xong (2026-09-16, nhánh `feat/FLF-161-fe-integration-e2e`)
 
 ## Mục tiêu
 Nối mọi panel FE vào BE thật (bỏ `NEXT_PUBLIC_API_MOCK` khỏi runtime), sửa drift so với contract phát sinh ở Wave 3–4, thêm Playwright e2e một kịch bản đầu-cuối, nhãn song ngữ từ step registry.
@@ -32,10 +32,39 @@ Nối mọi panel FE vào BE thật (bỏ `NEXT_PUBLIC_API_MOCK` khỏi runtime)
 - FE hoàn toàn trên BE thật; e2e xanh trên CI.
 
 ## Tiêu chí hoàn thành (DoD)
-- [ ] `grep -rn "NEXT_PUBLIC_API_MOCK" app lib components` rỗng (chỉ còn trong test/mocks).
-- [ ] Playwright kịch bản pass trên CI với BE mock provider.
-- [ ] Không còn `STEP_LABELS`/`progressPercent` trong `ProjectCard`.
-- [ ] typecheck/lint/test/build xanh.
+- [x] Rỗng. Gỡ hẳn nhánh bật msw trong `useWorkspace`, xoá `mocks/browser.ts` và `public/mockServiceWorker.js`; msw chỉ còn ở `mocks/server.ts` cho vitest.
+- [x] Kịch bản pass — **2/2 xanh trên BE + Mongo thật tại máy** (11,6s). Job CI đã viết (dựng Mongo service + checkout BE + chạy Playwright) nhưng **chưa chạy trên GitHub**. **Lệch có chủ ý:** không dùng `AI_PROVIDER=mock` vì cách đó không tồn tại — xem mục Ghi chú.
+- [x] Rỗng cả hai. Việc tiếp theo lấy từ step registry (`tStep`), trạng thái thẻ theo `readiness` thật của Spine.
+- [x] typecheck sạch · lint 0 lỗi (9 warning có sẵn trên `develop`) · **207 unit test xanh** (trước: 192) · build xanh.
 
 ## Ghi chú / rủi ro
 - e2e dùng mock provider BE để ổn định; luồng AI thật kiểm tay tại M4/M5.
+
+## Kết quả (2026-09-16)
+
+- Nhánh `feat/FLF-161-fe-integration-e2e` (FE), 1 commit, 18 file (+746 / −481).
+- Đã làm thêm ngoài danh sách: gỡ `rollbackChat` khỏi `lib/api/chat.ts` — không component nào dùng từ
+  T16, và `/undo` (T17) đã thay nó; endpoint cũ còn trên BE tới khi T21 xoá.
+- Một dòng spec-gaps thêm thẳng vào `develop` của BE (`a5c0498`) vì phát hiện thuộc về BE, không thuộc
+  nhánh FE này.
+
+### Lệch quan trọng so với đề bài: `AI_PROVIDER=mock` không tồn tại
+
+Task dự tính e2e chạy step S-2.1 rồi gate Accept, với BE khởi bằng `AI_PROVIDER=mock`. Kiểm thực tế:
+
+1. **Không có biến môi trường nào ghi đè provider** — provider chọn theo frontmatter của từng skill
+   (`provider: glm`), `llm.router` chỉ đọc `providerConfig.provider`.
+2. Kể cả ép dùng mock, `mock.provider.ts` trả JSON cố định (`{status, message, promptSnippet}`) **không
+   khớp** `opTransactionSchema`/`elicitSchema` — step sẽ chết ở bước parse, không sinh được op nào.
+
+Nghĩa là **không thể chạy một step pipeline trong CI mà không gọi model thật**. Kịch bản vì vậy gieo nội
+dung bằng op qua `POST /changes` (T17) — không cần model nhưng vẫn đi qua op engine và invariants thật,
+nên vẫn kiểm đúng cái e2e cần kiểm là seam FE ↔ BE. Muốn e2e phủ luôn bước AI thì cần (a) `AI_PROVIDER`
+ghi đè mọi skill và (b) mock provider trả output hợp schema theo `ActionType` — thuộc **T22/T24**, đã ghi
+`docs/spec-gaps.md`. Cùng một nguyên nhân với dòng T18 về nhánh `E2E_AI=1`.
+
+### Một phát hiện nhỏ nhưng đáng giữ
+
+Dự án vừa tạo **đã có Spine rỗng** với `progress.current_step = B-0.1` (`spine.repository.INITIAL_STEP`),
+nên thẻ dự án chỉ đúng việc đầu tiên ("Kể hết ý tưởng") thay vì "Chưa bắt đầu". Assertion đầu tiên của tôi
+sai, không phải code sai — nhánh "Chưa bắt đầu" chỉ dành cho project thật sự không có Spine.

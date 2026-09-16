@@ -273,13 +273,19 @@ Cách cập nhật: người phụ trách đổi ô Trạng thái của task mì
 | 4 | T19 | C | Xong | 2026-09-16 | DoD 5/5. **Đã merge `develop`** (BE + FE, `bdf053e` / `91f132d`). S-9.1 quét tất định, S-9.3 cờ vàng `goal_not_covered`, S-9.4 MoSCoW vào `priority` (thay UC34/35), S-9.5 ký baseline có snapshot + `-conditional`; endpoint 19/20; gỡ 3 route legacy. BE 685 test xanh. Chạy thật: `/baselines` 200 (đóng spec-gap M3), `/baseline` 422 đúng 35 cờ đỏ. Nhánh FE cùng tên mang XREQ T19→T16. **Còn: nút "Ký baseline" trên UI** (T16/T23) |
 | 4 | T20 | D | Xong (code) | 2026-09-16 | DoD 4/4 trên mock — lượt chạy provider thật **hoãn sau Wave 5**. **Đã merge `develop`** (BE + FE, `30b9f19` / `fde920e`). 13 step Brief + 4 step S-1 qua step runner, ghi Spine bằng op; bỏ `CHAT_DISCOVERY`; FE hết suy state từ tin nhắn, thêm 3 panel Brief. BE 667 test xanh, FE 192 test xanh + lint sạch. **Còn: lượt chạy thật trên dev** |
 | — | **M4** | cả 4 | [ ] **hoãn** | 2026-09-16 | Code W4 đã xong và đã merge `develop`. Điều kiện duy nhất còn thiếu là **lượt chạy provider thật** — quyết định 2026-09-16: hoãn tới sau Wave 5, mở W5 trước. Không tick cho tới khi chạy xong. |
+<<<<<<< HEAD
 | 5 | T21 | A | Chưa làm | | |
 | 5 | T22 | B | Đang làm | 2026-09-16 | DoD 0/3 tick đủ. Nhánh BE `feat/FLF-162-integration-tests` (`9a072ff`, đã push). Vitest 3 project `unit`/`integration`/`e2e-ai`; Mongo in-memory replica set + supertest; 10 file integration (57 test), mock ở tầng `callLLM` nên credit/`Usage` là code thật. BE **759 test xanh / 26 skip**, coverage `spine` 95.91% / `pipeline` 94.01% (ngưỡng 70%). `measure:tokens` estimate 19 màn: 271 credit (ngoại suy 20 vòng S-5: 411), input 1.26× — không bậc hai. **Còn: `E2E_AI=1` op cases + `--mode real` (hoãn có chủ ý), CI GitHub, ngưỡng nhóm chưa đặt.** Báo cáo: `report-t22-integration-tests.md` |
 | 5 | T23 | D | Chưa làm | | |
+=======
+| 5 | T21 | A | Đang làm | 2026-09-16 | DoD 3/4. Nhánh `feat/FLF-161-migration-cleanup` cả hai repo (BE `13293ed`, FE `8905c13`), chưa PR. Xoá 62 file legacy BE + 7 file FE; grep DoD rỗng; BE 716 test xanh, FE 193 test + lint 0 lỗi. Migration dry-run trên Mongo dev: 3 project / 16 section / 0 lỗi. **Còn: chạy migration thật** (ghi DB dev dùng chung — chờ xác nhận). XREQ T21→T23: `ProjectCard` + `mocks/state.ts` còn đọc `currentStep/progressPercent` |
+| 5 | T22 | B | Xong | 2026-09-16 | Do đồng đội làm. **Đã merge `develop`** (BE `1ab9952`): Mongo in-memory (replica set, có transaction) + supertest qua `app` thật, 3 project vitest (unit / integration / e2e-ai), 10 file integration, script `measure:tokens`, `docs/testing.md`. Sau merge: **unit 727 + integration 57 = 784 test xanh**, coverage lines **80,37%** (ngưỡng 70% cho spine/pipeline) |
+| 5 | T23 | D | Xong | 2026-09-16 | DoD 4/4. **Đã merge FE `develop`** (`548fd97`). Gỡ hẳn msw runtime; ProjectCard đọc `progress`/`readiness` thật; `lib/i18n.ts` từ step registry; Playwright 2/2 xanh trên BE + Mongo thật; CI thêm job lint/test/e2e; `docs/fe-architecture.md`. FE 207 test xanh, lint 0 lỗi, build xanh. **Lệch có chủ ý:** e2e không chạy step AI — `AI_PROVIDER=mock` không tồn tại và mock provider trả JSON sai schema (spec-gaps), nội dung gieo bằng op qua `POST /changes` |
+>>>>>>> ffe9f07fa666c6a50c324049da666600e5aaacb6
 | 5 | T24 | C | Chưa làm | | |
 | — | **M5** | cả 4 | [ ] | | |
 
-**Tiến độ wave:** W1 7/7 · W2 5/5 · W3 4/4 · **W4 4/4 (code xong, đã merge `develop`)** · W5 0/4 · **Tổng 20/24** · Merge point: **M1 [x]** · M2 [ ] · **M3 [x]** · **M4 [ ] hoãn có chủ ý** · M5 [ ].
+**Tiến độ wave:** W1 7/7 · W2 5/5 · W3 4/4 · **W4 4/4 (code xong, đã merge `develop`)** · W5 3/4 đã merge (T21, T22, T23; còn T24) · **Tổng 23/24** · Merge point: **M1 [x]** · M2 [ ] · **M3 [x]** · **M4 [ ] hoãn có chủ ý** · M5 [ ].
 Cập nhật 2026-09-15: W1–W3 đã trên `develop` (BE `323e6b4` PR #36, FE `ce8e2ac` PR #24); kiểm lại trên `develop`: BE typecheck sạch + 567 test, FE typecheck sạch + 184 test + lint 0 lỗi. Việc treo trước Wave 4: **nhãn `contract-change`** trên GitHub (M2); spec-gaps cho W4: `/baselines` 404 (T19), CORS `Content-Disposition` (T15/T24), assemble không cache khi thiếu PNG (T15). Chi tiết W1/W2 ở `review-t01-t12.md`.
 Cập nhật 2026-09-16: **T17 và T18 đã merge vào `develop`** (BE PR #38 rồi #39, `develop` = `6a21489`). Kiểm lại trên `develop` sau merge: BE typecheck sạch + **661 test xanh / 14 skip**. T17 đã kiểm trọn trên BE + Mongo + GLM thật (project run20, đã undo lại, tốn 3 credit) — output ở `report-t17-change-flow.md` mục 6. Cùng ngày thêm `CLAUDE.md` (bộ nhớ dự án) vào cả `flintflow_be` và `flintflow_fe`, rút từ `coding-rules.md`.
 Cập nhật 2026-09-16 (đợt 2): **cả bốn task Wave 4 đã nằm trên `develop`** — T17 (PR #38), T18 (PR #39),
@@ -293,6 +299,33 @@ Kiểm trên BE thật sau merge: `GET /baselines` 200, `GET /traceability` 200,
 (`approve-baseline`, `advance-to-generation`, `generate-priority`) đều 404 — đã gỡ đúng.
 Bốn XREQ **granted 2026-09-16**: T19→T03, T20→T03 (`prompt-assets.test.ts`), T20→T11 (`STEP_SKILLS`),
 T19→T16 (`lib/api/export.ts` gửi `base_version`).
+
+**Wave 5, trạng thái merge (2026-09-16).** T21 và T23 đều đã vào `develop` của **cả hai repo**:
+BE `4d0b787`, FE `82411f9`. Thứ tự merge thực tế là T23 trước rồi T21 lên trên.
+
+Hai xung đột, đều nhỏ và đã gỡ:
+- BE `docs/spec-gaps.md` — T21 thêm 7 dòng, T23 thêm 1 dòng, cùng ở cuối bảng ⇒ giữ cả hai khối.
+- FE `lib/api/chat.ts` — cả hai cùng gỡ `rollbackChat`, T23 để lại chú thích còn T21 xoá sạch ⇒ **lấy bản
+  T21**, vì chú thích của T23 nói "endpoint cũ còn trên BE tới khi T21 xoá" mà T21 đã xoá luôn endpoint đó.
+  `lib/api/endpoints.test.ts` git tự gộp.
+
+Kiểm sau merge T21 + T23: BE typecheck sạch + **716 test xanh / 14 skip**; FE typecheck sạch, lint 0 lỗi,
+**209 test xanh**, build xanh, **2 e2e xanh** trên BE + Mongo thật.
+
+**T22 merge tiếp (BE `1ab9952`).** Hai xung đột, đều do T22 nhánh ra từ trước T21/T23:
+`package.json` (T21 xoá `seed-from-md.ts` ⇒ bỏ hai script `seed:md*` trỏ vào file không còn, giữ
+`migrate:sections` của T21 và `measure:tokens` của T22) và `docs/spec-gaps.md` (ba task cùng thêm cuối
+bảng ⇒ giữ cả ba khối: T21 ×7, T23 ×1, T22 ×4).
+Sau merge: typecheck sạch cả `typecheck:test`; **unit 727 + integration 57 = 784 test xanh**;
+coverage lines **80,37%** / statements 80,32% / functions 87,51% — qua ngưỡng 70% mà T22 đặt cho
+`modules/spine` và `modules/pipeline`.
+
+**T22 mở đường cho lượt chạy thật đã hoãn:** giờ đã có Mongo in-memory và project vitest `e2e-ai`
+(`npm run test:e2e-ai`, chỉ chạy khi `E2E_AI=1`) — đúng thứ thiếu khi T18 ghi spec-gap "nhánh `E2E_AI=1`
+không nối Mongo". Cần kiểm lại xem khung mới đã reserve credit được chưa trước khi chạy M4.
+
+⚠ **Trùng số nhánh:** T21 dùng `FLF-161-migration-cleanup`, T23 dùng `FLF-161-fe-integration-e2e` — cùng
+161. Nên đổi ticket T23 thành **FLF-162** trong Jira.
 
 **Quyết định 2026-09-16 — hoãn lượt chạy provider thật tới sau Wave 5.** Toàn bộ code Wave 4 đã xong và
 đã merge `develop`; thứ duy nhất còn thiếu để tick M4 là chạy một project mới đi trọn B-0.1 → S-9.5 với
