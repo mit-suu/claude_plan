@@ -1,6 +1,6 @@
 # Task 19 — S-9 gate cuối + baseline snapshot + export bản sạch + prioritization
 
-**Wave:** 4 · **Người phụ trách:** C · **Effort:** 8 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [ ] Xong
+**Wave:** 4 · **Người phụ trách:** C · **Effort:** 8 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [x] Xong (2026-09-16, nhánh `feat/FLF-159-s9-baseline`)
 
 ## Mục tiêu
 Pha gate cuối (Phases §6.4 S-9.x, §6.5): completeness & assumption sweep, business goal validation, prioritization (thay UC34/35), baseline sign-off quét lại tất định trên `spine_version` hiện tại, snapshot, `v1.0-conditional` khi có waive; export bản sạch từ snapshot.
@@ -40,12 +40,32 @@ A5 (baselineVersion chuỗi cứng, không snapshot), C5 (không luật kiểm),
 - Baseline có snapshot và điều kiện đúng tài liệu; export bản sạch từ snapshot; MoSCoW ở S-9.4.
 
 ## Tiêu chí hoàn thành (DoD)
-- [ ] Fixture `POST /baseline` ra `v1.0`, snapshot lưu; waive 1 cờ ra `v1.0-conditional`; cờ không waive được mở thì 409.
-- [ ] Sửa `actors[].name` sau baseline: `export?source=baseline` không đổi, `source=draft` có watermark.
-- [ ] `spine_version` đổi giữa quét và ký trả 409 và quét lại thành công.
-- [ ] Không còn route `generate-priority`, `generate-scope`, `approve-baseline`.
-- [ ] Hết credit vẫn ký baseline được (không Meter).
+- [x] Fixture ra `v1.0`, snapshot parse lại được bằng `spineSchema`; waive 1 cờ ra `v1.0-conditional`; còn cờ đỏ chưa waive thì **422 `BASELINE_BLOCKED`** kèm danh sách (mã theo hợp đồng §0.3, không phải 409 `RED_FLAGS_OPEN` như task viết — ghi ở spec-gaps).
+- [x] Sửa `actors[].name` sau baseline: bản dựng từ snapshot giữ tên cũ và **không** có watermark; bản draft theo Spine sống và có `DRAFT` (`s9.e2e.test.ts`).
+- [x] `spine_version` đổi giữa quét và ký ⇒ 409, **không để lại snapshot mồ côi**; quét lại rồi ký thì ra `v1.0`.
+- [x] Đã gỡ khỏi `specification.route.ts`; controller cũ xoá cùng module ở T21.
+- [x] `signOff` không import ai-action/meter; e2e kiểm `usage[]` của S-9.1 và S-9.5 rỗng, còn S-9.3/S-9.4 thì có.
 
 ## Ghi chú / rủi ro
 - S-9.2 Quality Lens LLM hoãn (Phases §9.1); để flag `REVIEW_LLM_ENABLED`.
 - Không ngưỡng phần trăm.
+
+## Kết quả (2026-09-16)
+
+- Nhánh `feat/FLF-159-s9-baseline`, 1 commit, 20 file (+1894 / −89). BE typecheck sạch, **685 test xanh / 14 skip**.
+- Mới: `s9/{completeness-sweep, goal-validation, prioritization, baseline.service, run-s9-step}.ts`,
+  `s9/baseline.{controller,route}.ts`, 3 file test; skill `content/prioritization` và
+  `output/srs-completeness-score` viết thật.
+- Hai lỗi lộ ra khi chạy thật, đã sửa trong cùng nhánh:
+  1. Cờ do gate/model đặt (`accepted_as_is` của T13, `goal_not_covered` của S-9.3) bị lượt recompute kế
+     tiếp tự đóng ⇒ thêm `MODEL_OWNED_RULES`.
+  2. S-9.4 ghi `priority` cho mọi function/NFR làm **62 section** thành `stale`, rồi
+     `section_stale_at_baseline` chặn đúng cái baseline ngay sau ⇒ `priority` không ánh xạ section (như
+     `order` đã làm sẵn).
+- Chạy thật trên BE + Mongo (project run20): `GET /baselines` 200 `[]` (đóng spec-gap "/baselines 404"
+  của M3); `POST /baseline` 422 `BASELINE_BLOCKED` với đúng 35 cờ đỏ đang mở; `base_version` sai 409;
+  body rỗng 400.
+- **Chưa làm**: `GET /baselines/:id/document` (alias) — endpoint 16 `?source=baseline&baseline_id=` của
+  hợp đồng đã làm đúng việc đó, thêm alias là mở endpoint ngoài hợp đồng.
+- **Cần trước khi merge**: XREQ T19→T16 cho `lib/api/export.ts` — FE `createBaseline` gửi body rỗng nên
+  nhận 400; phải gửi `{ base_version }`.

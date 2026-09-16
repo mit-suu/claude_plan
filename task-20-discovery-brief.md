@@ -1,6 +1,6 @@
 # Task 20 — Discovery B-0 → B-2 + S-1 qua step runner (BE + FE)
 
-**Wave:** 4 · **Người phụ trách:** D · **Effort:** 9 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [ ] Xong
+**Wave:** 4 · **Người phụ trách:** D · **Effort:** 9 điểm · **Trạng thái:** [ ] Chưa làm  [x] Đang làm (mock xong, chờ lượt chạy thật trên dev)  [ ] Xong · nhánh `feat/FLF-160-discovery-brief` (BE + FE)
 
 ## Mục tiêu
 Đưa Product Brief về đúng Phases §5: 13 step (B-0 4 step, B-1 6 step, B-2 3 step) + S-1 (4 step mềm) chạy qua step runner, ghi `project{}`, `addendum[]`, `assumptions[]`, `other_requirements[]` bằng op; gate do user, không do LLM tự đánh giá; approve mở S-2. FE refit chat pane theo mô hình step.
@@ -38,10 +38,27 @@ B2 (chỉ 6 step B-1, LLM tự quyết hoàn thành, Brief chỉ nằm trong JSO
 - Discovery đúng 13 + 4 step, ghi Spine; FE không còn suy state từ JSON tin nhắn.
 
 ## Tiêu chí hoàn thành (DoD)
-- [ ] Project mới đi B-0.1 … B-2.3 rồi S-1.4 chạy trọn; `project{vision,goals,form_factor,stakes,working_mode}` và `addendum[]` ≥ 5, `assumptions[]` ≥ 2 được ghi.
-- [ ] Fast path: ≤ 2 lượt hỏi mỗi phase; Coaching: mỗi step ≥ 1 lượt và gate riêng.
-- [ ] `grep -n "evaluation" flintflow_fe/app/projects` rỗng.
-- [ ] Approve B-2.3 đặt `progress.current_phase=S-1`; S-1.4 accepted mở S-2.1.
+- [x] **Trên mock**: project rỗng đi trọn 13 step Brief + 4 step S-1 (`brief.e2e.test.ts`); đủ 5 trường `project{}`, `addendum[]` = 8, `assumptions[]` = 3, và Brief không chạm `actors/use_cases/screens/functions/sections`. Lượt chạy thật trên dev chưa làm.
+- [x] Coaching: 4 step đầu ⇒ 4 lượt elicit, mỗi step một gate. Fast: phase B-0 ≤ 2 lượt (`brief.e2e.test.ts`).
+- [x] `grep -rn "evaluation" flintflow_fe/app/projects` **rỗng**. ChatBubble bỏ `DiscoveryEvaluation`, thanh completeness và `parseAiMessage` 4 tầng (còn một tầng: parse JSON lấy `reply`).
+- [x] Accept B-2.3 ⇒ `nextStep` trỏ `S-1.1`; chạy S-1.1 đặt `progress.current_phase = S-1`; S-1.4 accepted ⇒ `nextStep` trỏ `S-2.1`.
 
 ## Ghi chú / rủi ro
 - Câu trả lời Elicit giữ trong transcript session pipeline và tái dùng khi Regenerate (Phases §4.4).
+
+## Kết quả (2026-09-16)
+
+- Nhánh `feat/FLF-160-discovery-brief` ở **cả hai repo**.
+  BE: 2 commit, 31 file (+1266 / −80) — typecheck sạch, **667 test xanh / 14 skip**.
+  FE: 1 commit, 7 file (+539 / −122) — typecheck sạch, lint 0 lỗi, **192 test xanh**.
+- BE: skill `product-brief` viết thật (+ 4 references + brief-template), skill mới `brief-analysis`;
+  bỏ hẳn `CHAT_DISCOVERY` và `buildCompletedStepsSummary`; tin nhắn ở session pipeline khi step đang chờ
+  trả lời đi thẳng vào `submitAnswer`; gỡ route `advance-to-generation`; 17 fixture op-case + e2e.
+- FE: `BriefSummaryCard`, `AssumptionSweepPanel`, `AddendumTriagePanel` (chỉ hiện ở pha B-*/S-1, ghi qua
+  `POST /changes`), ChatBubble dọn sạch.
+- Quyết định đáng chú ý: **"để dành" ở B-2.2 là đổi `target_section` sang `fixed:5.4`**, không phải chuyển
+  sang `other_requirements[]` — step registry chỉ cho B-2.2 ghi `addendum`/`assumptions`, và S-7.4 (T18) đã
+  đọc addendum nhắm `fixed:5.4`. Thông tin không mất, quay lại được.
+- **Cần trước khi merge**: XREQ T20→T11 cho 2 dòng `STEP_SKILLS` (S-1.1/1.3/1.4 → `brief-analysis`).
+- **Việc còn lại**: tạo project mới trên dev, đi trọn B-0.1 → S-1.4 rồi S-2.1 với provider thật (bước 5
+  của task) — chưa chạy vì tốn credit và cần một project mới.
