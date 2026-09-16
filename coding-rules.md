@@ -161,3 +161,11 @@ Quy tắc mặc định: thư mục không được liệt kê cho task = **R**.
 - [ ] `plan-overview.md` mục 8 cập nhật dòng của task.
 - [ ] Báo cáo theo mẫu `task-report-template.md` đầy đủ 9 mục, dán vào mô tả PR.
 - [ ] Không còn `TODO(XREQ-…)` chưa xử lý nếu PR là PR cuối của task.
+## 7. Git Commits
+
+- **Không** thêm dòng "Co-Authored-By: Claude" hoặc bất kỳ nhắc đến Claude/AI vào commit message.
+- **Gộp commit hợp lý, tránh commit vụn vặt.** Không commit sau mỗi thay đổi nhỏ (sửa 1 dòng, chạy test, sửa lint). Chỉ commit khi hoàn thành một đơn vị việc có ý nghĩa (một bước trong DoD của task, một hàm/module hoàn chỉnh kèm test).
+  - Mục tiêu: 1 task chỉ nên có **3-5 commit**, không phải 8-10 commit.
+  - Trước khi commit, tự hỏi: "thay đổi này có đứng độc lập, review được không?" — nếu không, gộp tiếp vào commit đang làm bằng `git commit --amend` hoặc gộp thay đổi trước khi commit lần đầu.
+  - Không commit riêng cho: sửa typo, format lại, chạy lại test không đổi code, sửa lỗi do commit ngay trước gây ra (gộp vào commit đó thay vì tạo commit sửa lỗi mới).
+- Message vẫn theo format `tXX: <việc làm>`, mô tả đúng nội dung gộp (không còn mô tả 1 hành động nhỏ).
