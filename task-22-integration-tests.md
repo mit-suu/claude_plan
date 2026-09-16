@@ -1,6 +1,6 @@
 # Task 22 — Bộ test tích hợp + đo token end-to-end trên fixture
 
-**Wave:** 5 · **Người phụ trách:** B · **Effort:** 6 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [ ] Xong
+**Wave:** 5 · **Người phụ trách:** B · **Effort:** 6 điểm · **Trạng thái:** [ ] Chưa làm  [x] Đang làm  [ ] Xong
 
 ## Mục tiêu
 Nâng test từ 2 file lên bộ tích hợp có DB (mongodb-memory-server) và HTTP (supertest) cho toàn bộ lõi mới; chạy 10 ca op với provider thật (gated); đo token end-to-end fixture 19 màn (rủi ro gốc Phases §9.3 và srs-spine §10); coverage threshold cho lõi.
@@ -37,6 +37,8 @@ Nâng test từ 2 file lên bộ tích hợp có DB (mongodb-memory-server) và 
 - [ ] CI xanh; coverage lõi ≥ 70%.
 - [ ] `E2E_AI=1` op cases: ≥ 8/10 pass ở lần chạy ghi nhận (ghi số thật, không làm tròn).
 - [ ] `docs/measurements.md` có tổng token và chi phí fixture 19 màn, so với ngưỡng.
+
+> 2026-09-16 (báo cáo `report-t22-integration-tests.md`): (1) trên máy xanh — 759 test, coverage `spine/**` 95.91%, `pipeline/**` 94.01%; CI GitHub chưa chạy (chưa push). (2) chưa chạy provider thật. (3) có số **estimate** 19 màn (381 766 tokens in, 271 credit; ngoại suy 20 vòng S-5: 411 credit), USD n/a, ngưỡng nhóm chưa đặt, chưa có số `--real`.
 
 ## Ghi chú / rủi ro
 - Nếu chi phí tăng bậc hai theo step (input tăng theo tiến độ), mở issue cho T11 projection; không sửa trong task này.
