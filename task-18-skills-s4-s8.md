@@ -1,6 +1,6 @@
 # Task 18 — Content skill S-4, S-5 (loop theo màn), S-6, S-7, S-8.1
 
-**Wave:** 4 · **Người phụ trách:** B · **Effort:** 10 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [ ] Xong
+**Wave:** 4 · **Người phụ trách:** B · **Effort:** 10 điểm · **Trạng thái:** [ ] Chưa làm  [x] Đang làm (mock xong, chờ `E2E_AI=1`)  [ ] Xong · nhánh `feat/FLF-158-skills-s4-s8`
 
 ## Mục tiêu
 Mở rộng ngang các phase còn lại (Phases §9.3 bước 5) trên khung runner đã có: S-4 (chốt N, screen_queue, flow, authorization, non-screen, ERD), S-5 lặp theo màn (chia lô ≤ 6 function, chỉ 3–5 màn cốt lõi, còn lại placeholder), S-6 NFR có số, S-7 suy dẫn, S-8.1 glossary.
@@ -41,10 +41,21 @@ B1 (không có vòng lặp theo màn / N), B5 (context), A3 (thiếu `function:*
 - 8 skill content hoàn chỉnh; runner S-5 loop; e2e S-4 đến S-8.1.
 
 ## Tiêu chí hoàn thành (DoD)
-- [ ] Mock e2e S-4.1 đến S-8.1 xanh; N chốt đúng số màn + 1.
-- [ ] `E2E_AI=1`: 0 cờ đỏ không waive được (`array_empty/dead_reference/render_error`); `nfr_missing_number` = 0.
-- [ ] Màn 15+ function chia ≥ 3 lượt; `5 × N` step không đổi.
-- [ ] Màn `placeholder` có khung `functions[]`, không bắn `screen_pending_at_baseline`.
+- [x] Mock e2e S-4.1 → S-8.1 xanh (`s4-s8.e2e.test.ts`); N = 4 màn + vòng `@nonscreen` ⇒ `totalSteps = 51 + 5×5 = 76`.
+- [ ] `E2E_AI=1`: **chưa chạy** — phiên này không có API key provider. Ca test đã viết và `skipIf` đúng biến môi trường; trên mock thì cả hai điều kiện đã xanh (0 cờ đỏ không waive được, `nfr_missing_number` = 0).
+- [x] Màn 15 function chia **6 + 6 + 3** lượt cho cả S-5.2 và S-5.4, các lô rời nhau và phủ đủ; màn 2 function vẫn một lượt. `5 × N` step không đổi (chia lô nằm trong step).
+- [x] Màn `placeholder` giữ nguyên khung `functions[]` do S-4.1 sinh, `nextStep` bỏ qua vòng của nó, và không có cờ `screen_pending_at_baseline` nào mở.
 
 ## Ghi chú / rủi ro
 - Chỉ 3–5 màn cốt lõi chi tiết (Phases §9.1) — chọn: Project Workspace, Verification & Change, Export, Project Dashboard, Plan & Pricing.
+
+## Kết quả (2026-09-16)
+
+- Nhánh `feat/FLF-158-skills-s4-s8`, 3 commit, 35 file (+2912 / −103).
+- 8 content skill bỏ `stub`, mỗi file ≤ 150 dòng (101–128); thêm 4 file `references/` cho người đọc.
+- Runner: `LOOP_BOOKKEEPING_TEMPLATES` (S-5.1/S-5.5 không gọi model), `loopCursorOps`,
+  `functionBatches` + `batchContext` (lô ≤ 6 function); gate: `accept_as_is` trên S-5.1 ⇒ `placeholder`.
+- 17 fixture op-case; `s-5.2/s-5.4` là template `${fn}` mở theo đúng lô runner đưa vào projection.
+- BE: typecheck sạch, **570 test xanh / 14 skip** (develop trước đó 567; +3 ca của file e2e mới).
+- Số đo token/lượt gọi từng step ở `docs/measurements.md`; 0/46 lượt phải retry schema (mock).
+- Việc còn lại: chạy `E2E_AI=1` khi có key, ghi tỉ lệ retry thật vào `docs/measurements.md`.

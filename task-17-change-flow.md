@@ -1,6 +1,6 @@
 # Task 17 — Change flow: impact query, 3 nhánh, preview diff, stale, hoà giải, undo, traceability
 
-**Wave:** 4 · **Người phụ trách:** A · **Effort:** 9 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [ ] Xong
+**Wave:** 4 · **Người phụ trách:** A · **Effort:** 9 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [x] Xong (2026-09-16, nhánh `feat/FLF-157-change-flow`)
 
 ## Mục tiêu
 Sửa qua hội thoại đúng srs-spine §9 và Phases §2.2–2.3: impact query trên đồ thị khoá, ba nhánh (áp im lặng / preview diff / sau baseline bắt buộc impact), `stale` lan theo 3 cột, hoà giải một lượt, undo op cuối, traceability read-only. Thay hoàn toàn rollback cắt chat.
@@ -40,12 +40,24 @@ C2 (undo phá huỷ), C3 (không có impact/stale/hoà giải/diff), C4 (traceab
 - API change/reconcile/undo/traceability chạy thật; FE Change panel nối thật.
 
 ## Tiêu chí hoàn thành (DoD)
-- [ ] Đổi tên actor: preview liệt kê đúng 3 section + 2 diagram; apply làm `status(fixed:2.2.2)=stale`.
-- [ ] Hoà giải: diff gộp, apply, diagram render lại, section `awaiting_reaccept`; từ chối thì vẫn stale.
-- [ ] Undo khôi phục Spine deep-equal trước txn; undo hai lần liên tiếp đúng thứ tự.
-- [ ] Sau baseline (T19), apply không có `reason` trả 400; còn cờ đỏ thì không tạo baseline mới.
-- [ ] Session không pipeline gửi lệnh sửa đi qua change flow, không đẩy `progress`.
+- [x] Đổi tên actor: preview liệt kê đúng 3 section (`fixed:2.1` owner, `2.2.2` + `3.1.3` reads); apply làm `status(fixed:2.2.2)=stale`. **Lệch nhỏ:** đổi tên actor `kind=human` chỉ vẽ lại **1** hình (`usecase`) — hình ngữ cảnh chỉ chiếu `actors[kind!=human]` (`source-hash.ts`), nên ca "2 diagram" kiểm bằng actor `kind=system` (`impact.test.ts`). Ghi ở `docs/spec-gaps.md`.
+- [x] Hoà giải: diff gộp, apply, diagram render lại (đúng hình lệch `source_hash`), section `awaiting_reaccept`; từ chối thì vẫn stale (`reconcile.test.ts`).
+- [x] Undo khôi phục Spine deep-equal trước txn (kể cả lô có cascade); undo hai lần liên tiếp đi lùi đúng thứ tự, lần ba trả `NOTHING_TO_UNDO` (`undo.test.ts`).
+- [~] Sau baseline, apply không có `reason` trả **400** và nhánh là `post_baseline` — kiểm trên Spine đã gieo sẵn `baselines[]` (`change.service.test.ts`). Vế "còn cờ đỏ thì không tạo baseline mới" thuộc **T19** (`POST /baseline` chưa có), chưa kiểm được ở đây.
+- [x] Session không pipeline gửi lệnh sửa đi qua change flow (`isChangeInstruction` → `change.service.preview`), không gọi CHAT, không đụng `progress` (`chat-session.service.test.ts`).
 
 ## Ghi chú / rủi ro
 - Hoà giải thủ công một lượt; không tự lan toả (Phases §9.1).
 - Impact không bắt ngữ nghĩa (srs-spine §4.1): ghi rõ trong UI (T16) là cảnh báo heuristic.
+
+## Kết quả (2026-09-16)
+
+- Nhánh `feat/FLF-157-change-flow`, 3 commit, 17 file (+3081 / −137).
+- Mới: `impact.service.ts`, `change.service.ts`, `reconcile.service.ts`, `undo.service.ts`,
+  `traceability.service.ts` + 5 file test. Sửa: `changes.controller/route` (6 endpoint),
+  `chat-session.service.ts`, `apply-change-op/SKILL.md`, `docs/spec-gaps.md`.
+- BE: typecheck sạch, **658 test xanh / 13 skip** (develop trước đó 567).
+- FE **không phải sửa**: ChangePanel/DiffPreviewModal/TraceabilityMap của T16 đã viết theo đúng
+  contract; msw chỉ bật khi `NEXT_PUBLIC_API_MOCK=1`. Việc còn lại là kiểm trên trình duyệt với BE
+  thật (cùng D) — thuộc M4.
+- Chưa làm: chạy thật với provider (không có API key trong phiên này).
