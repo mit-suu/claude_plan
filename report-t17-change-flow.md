@@ -63,7 +63,46 @@ Tổng: **17 file · +3081 / −137** (`git diff --stat develop...HEAD`)
   ```
   (develop trước đó: 567 test). Test skip là các ca `E2E_AI=1`/PlantUML thật đã có từ trước, không phải của T17.
 - Test theo module T17: `npx vitest run src/modules/spine/` → `21 passed (21) · 257 passed (257)`.
-- Test chạy thủ công (curl/UI/docker): **chưa** — chưa có BE chạy + Mongo trong phiên này.
+- **Test chạy thật trên BE + Mongo + provider thật** (dev server `tsx watch` :5000, tài khoản `fixture@flintflow.io`, project `6aa90df7…` = "M3 S-2/S-3 real provider (run20)", Spine v59, 6 actor):
+
+  ```
+  GET /spine                         200 · spine_version=59 · actors=6
+  target actor                       A01 "AI Model Provider" (system)
+  POST /changes/preview              200 · ok=true · branch=dependent
+    impact.sections                  fixed:1 owner, fixed:2.1 owner, fixed:2.2.2 reads,
+                                     fixed:3.1.3 reads, fixed:2.2.1 derived, fixed:5.5 derived
+    impact.diagrams                  ["context","usecase"]
+    impact.referrers (n)             1
+    preview_id                       yes
+  preview did NOT write              OK (version unchanged)
+  POST /changes                      200 · txn=732c1d1a · v=61 · branch=dependent
+  GET /progress stale sections       ["fixed:1","fixed:2.1","fixed:2.2.1","fixed:2.2.2"]
+  GET /changes                       200 · n=205
+  POST /reconcile (pass 1)           200 · ops=1 preview_id=yes
+  POST /undo                         200 · txn=d26c2200 · v=62
+    actor name restored              OK ("AI Model Provider")
+  GET /traceability                  200 · nodes=5 · edges=4
+  stale base_version                 409 SPINE_VERSION_CONFLICT
+  traceability bad entity            400 VALIDATION_ERROR
+  undo on foreign project            404 PROJECT_NOT_FOUND
+  system-managed root                422 OP_INVALID · [["path_not_writable",1]]  (base_version đúng)
+    nothing written                  OK
+  ```
+
+  Nhánh `instruction` chạy qua **GLM thật**:
+
+  ```
+  target use case                    UC01 "Register And Verify Account"
+  preview {instruction}              200 · 3s · ok=true · branch=dependent
+    ops                              ["set use_cases[id=UC01].name = \"Smoke Renamed Use Case\""]
+    impact.sections                  ["fixed:2.2.2:owner","fixed:2.2.1:derived"]
+  apply {preview_id}                 200 · 2s (không gọi model lần hai) · v=64
+    renamed to                       "Smoke Renamed Use Case"
+  reused preview_id                  422 CHANGE_RANGE_INVALID
+  undo the rename                    200 · name now="Register And Verify Account"
+  ```
+
+  Chi phí: **3 credit** cho lượt `change_instruction` (ví còn 542). Project đã được **undo về trạng thái ban đầu**; chỉ còn lại lịch sử `changes[]` của lượt thử (đúng thiết kế — undo không xoá lịch sử).
 - DoD trong file task: **4/5 tick**. Mục chưa tick trọn: "sau baseline… còn cờ đỏ thì không tạo baseline mới" — vế `reason` bắt buộc → 400 đã kiểm; vế baseline thuộc **T19** (`POST /baseline` chưa tồn tại).
 
 ## 7. Bị chặn / cần quyết định
@@ -81,6 +120,6 @@ Tổng: **17 file · +3081 / −137** (`git diff --stat develop...HEAD`)
 | `src/modules/specification/traceability.service.ts` | Bản traceability cũ (source link tài liệu upload) vẫn còn, khái niệm khác hẳn bản mới | T21 (xoá legacy) | Không (đã có trong plan T21) |
 
 ## 9. Bước tiếp theo
-- Việc còn lại của task này: kiểm trên trình duyệt với BE thật + Mongo (Change panel: preview → apply → undo → reconcile → traceability), cùng D. Không còn việc code.
+- Việc còn lại của task này: kiểm **trên trình duyệt** (Change panel của T16) cùng D — API đã kiểm xong trên BE thật (mục 6). Không còn việc code.
 - Ảnh hưởng tới merge point M4: **Có** — M4 đòi "FE ChangePanel chạy thật (không mock)", cần một lượt kiểm trình duyệt sau khi merge.
 - Đề xuất: merge T17 trước T19 để T19 dùng lại `impactOf` cho Impact Analysis trước baseline; sau khi T19 có `POST /baseline` thì bổ sung một test đóng nốt DoD 4.

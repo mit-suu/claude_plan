@@ -72,7 +72,7 @@ Tổng: **35 file · +2912 / −103** (`git diff --stat develop...HEAD`)
 ## 7. Bị chặn / cần quyết định
 | Vấn đề | Cần ai | Đề xuất của tôi | Mức khẩn |
 |---|---|---|---|
-| Không có API key provider ⇒ chưa chạy `E2E_AI=1` (DoD 2 và mục "tỉ lệ retry thật") | Người có key | Chạy `E2E_AI=1 npx vitest run src/modules/pipeline/skills/s4-s8.e2e.test.ts`, dán số vào `docs/measurements.md` rồi tick DoD | **Cao** — chặn M4 |
+| DoD 2 (`E2E_AI=1`) chưa chạy — và **nhánh test đó chạy cũng không được như đang viết**: `executeAiAction` cần Mongo thật (reserve/deduct credit, `AiActionLog`) mà tiến trình vitest không nối Mongo. Đúng với cả khung của T14, chưa ai chạm vì chưa ai chạy | B + người điều phối | Chốt cách chạy thật theo đúng cách T14 đã dùng cho run12–20: **qua API trên BE + Mongo thật**, không qua vitest — nghĩa là chạy tiếp project run20 từ S-4.1 lên S-8.1 rồi ghi số vào `docs/measurements.md`. Việc này tốn credit và làm thay đổi hẳn project của M3, nên **chờ quyết định**, không tự chạy | **Cao** — chặn M4 |
 | `WRITTEN_NON_ACTION` trong test của T03 (mục 4) | B / chủ T03 | Xác nhận `granted` theo đúng tiền lệ T10/T14 | Trung bình — chặn merge |
 | Registry để S-5.1/S-5.5 `deterministic: false` nhưng hai step này không cần model | Cả nhóm | Giữ registry (đóng băng), bỏ qua Draft trong runner (`LOOP_BOOKKEEPING_TEMPLATES`). Nếu mở PR `contract-change` sau này thì đổi `deterministic: true` và gỡ hằng số | Thấp |
 | Không có hành động gate nào nghĩa là "để lại màn" | Cả nhóm | Dùng `accept_as_is` trên S-5.1 (bắt buộc `note`, mở cờ vàng `accepted_as_is` — đúng là lời giải thích) thay vì thêm hành động mới vào `gateRequestSchema` đã đóng băng | Thấp |
@@ -83,8 +83,10 @@ Tổng: **35 file · +2912 / −103** (`git diff --stat develop...HEAD`)
 | `src/modules/spine/op-engine.ts` `applySet` (mảng phần tử có `id`) | `set` cả mảng `functions[].validations` bị từ chối (`op_not_allowed`) — task-18 và bản nháp skill đều viết `set`. Đúng của engine; đã sửa **skill + fixture**, không sửa engine | T08 (engine đúng) | Có |
 | `assets/step-registry.json` S-7.1 `writes` | S-7.1 chỉ được ghi `business_rules`, `assumptions` ⇒ không thể nối `functions[].business_rule_ids`; cạnh truy vết chỉ một chiều qua `source_validation_ids` | T12 (registry) | Có |
 | `src/modules/pipeline/draft-to-ops.ts#contentGuidance` | Vẫn không nạp `references/` cho skill content (quyết định Wave 3). Hệ quả: mọi luật phải nén vào `SKILL.md` ≤ 150 dòng — làm được cho cả 8 skill, nên **không đề nghị mở lại** | T11 | Đã có từ T14 |
+| `src/modules/pipeline/skills/s2-s3.e2e.test.ts` (nhánh `E2E_AI=1`, khung của T14) | Nhánh real-provider không thể chạy: `executeAiAction` gọi `CreditWallet`/`CreditLedger`/`AiActionLog` qua mongoose nhưng tiến trình vitest không nối Mongo (`vitest.config.ts` không có `setupFiles`). Sẽ treo ở mongoose buffering rồi timeout — dễ bị hiểu nhầm là lỗi provider | T14 / T22 (khung test) | Có (commit `bc80459`) |
 
 ## 9. Bước tiếp theo
-- Việc còn lại của task này: (1) xin `granted` cho XREQ T18→T03; (2) chạy `E2E_AI=1`, ghi số thật + tỉ lệ retry vào `docs/measurements.md`, tick DoD 2 → trạng thái "Xong".
+- Việc còn lại của task này: (1) xin `granted` cho XREQ T18→T03; (2) chốt cách chạy real-provider (qua API trên BE thật, không qua vitest — xem mục 7), chạy S-4.1 → S-8.1, ghi số thật + tỉ lệ retry vào `docs/measurements.md`, tick DoD 2 → trạng thái "Xong".
+- Ghi chú: BE + Mongo + GLM **đang chạy thật** trong phiên này (đã dùng để kiểm T17), ví còn 542 credit. Chưa chạy S-4→S-8.1 vì lượt đó tốn credit và làm thay đổi hẳn project artifact của M3 — chờ quyết định.
 - Ảnh hưởng tới merge point M4: **Có** — M4 đòi một lượt đi trọn B-0.1 → S-9.5 với provider thật; lượt `E2E_AI=1` của T18 là mảnh S-4→S-8.1 của lượt đó.
 - Đề xuất: merge T18 trước T19 (T19 cần S-8.1 để S-9.1 quét lại glossary, và cần biết `placeholder` để đếm màn ở baseline).
