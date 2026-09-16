@@ -1,6 +1,6 @@
 # Task 21 — Data migration + xoá legacy + cập nhật docs
 
-**Wave:** 5 · **Người phụ trách:** A · **Effort:** 7 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [ ] Xong
+**Wave:** 5 · **Người phụ trách:** A · **Effort:** 7 điểm · **Trạng thái:** [ ] Chưa làm  [x] Đang làm  [ ] Xong
 
 ## Mục tiêu
 Chuyển project cũ (Section markdown) sang Spine ở mức best-effort, xoá toàn bộ module/route/prompt/script legacy đã được thay thế, cập nhật README/swagger/CLAUDE.md.
@@ -33,10 +33,10 @@ Dứt điểm A1–A8, B1, C1, C2, C4 (xoá nguồn cũ để không còn hai ng
 - Codebase không còn Section/SectionVersion/VerificationContext/rollback; migration chạy được; docs đúng hiện trạng.
 
 ## Tiêu chí hoàn thành (DoD)
-- [ ] Grep `SectionType|workspacePhase|SectionVersion|RequirementSourceLink|VerificationContext` trong `flintflow_be/src`, `flintflow_fe/app`, `flintflow_fe/lib` rỗng.
-- [ ] Migration dry-run + thật trên dump dev; project cũ mở được ở B-0 với addendum.
-- [ ] `npm run typecheck && npm test` BE/FE xanh.
-- [ ] README/swagger/CLAUDE.md phản ánh module mới.
+- [x] Grep `SectionType|workspacePhase|SectionVersion|RequirementSourceLink|VerificationContext` trong `flintflow_be/src`, `flintflow_fe/app`, `flintflow_fe/lib` rỗng. _(2026-09-16: 0 dòng)_
+- [ ] Migration dry-run + thật trên dump dev; project cũ mở được ở B-0 với addendum. _(2026-09-16: dry-run trên Mongo dev xong — 3 project, 16 section, 0 lỗi, `docs/migration-report.md`. **Chưa chạy thật**: ghi vào DB dev dùng chung, chờ xác nhận.)_
+- [x] `npm run typecheck && npm test` BE/FE xanh. _(BE 716 pass / 14 skip; FE 193 pass, lint 0 lỗi)_
+- [x] README/swagger/CLAUDE.md phản ánh module mới. _(+ `docs/architecture.md`)_
 
 ## Ghi chú / rủi ro
 - Migration best-effort: không hứa parse UC/FR cũ chính xác; addendum là đích an toàn.

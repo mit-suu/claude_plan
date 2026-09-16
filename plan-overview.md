@@ -273,7 +273,7 @@ Cách cập nhật: người phụ trách đổi ô Trạng thái của task mì
 | 4 | T19 | C | Xong | 2026-09-16 | DoD 5/5. **Đã merge `develop`** (BE + FE, `bdf053e` / `91f132d`). S-9.1 quét tất định, S-9.3 cờ vàng `goal_not_covered`, S-9.4 MoSCoW vào `priority` (thay UC34/35), S-9.5 ký baseline có snapshot + `-conditional`; endpoint 19/20; gỡ 3 route legacy. BE 685 test xanh. Chạy thật: `/baselines` 200 (đóng spec-gap M3), `/baseline` 422 đúng 35 cờ đỏ. Nhánh FE cùng tên mang XREQ T19→T16. **Còn: nút "Ký baseline" trên UI** (T16/T23) |
 | 4 | T20 | D | Xong (code) | 2026-09-16 | DoD 4/4 trên mock — lượt chạy provider thật **hoãn sau Wave 5**. **Đã merge `develop`** (BE + FE, `30b9f19` / `fde920e`). 13 step Brief + 4 step S-1 qua step runner, ghi Spine bằng op; bỏ `CHAT_DISCOVERY`; FE hết suy state từ tin nhắn, thêm 3 panel Brief. BE 667 test xanh, FE 192 test xanh + lint sạch. **Còn: lượt chạy thật trên dev** |
 | — | **M4** | cả 4 | [ ] **hoãn** | 2026-09-16 | Code W4 đã xong và đã merge `develop`. Điều kiện duy nhất còn thiếu là **lượt chạy provider thật** — quyết định 2026-09-16: hoãn tới sau Wave 5, mở W5 trước. Không tick cho tới khi chạy xong. |
-| 5 | T21 | A | Chưa làm | | |
+| 5 | T21 | A | Đang làm | 2026-09-16 | DoD 3/4. Nhánh `feat/FLF-161-migration-cleanup` cả hai repo (BE `13293ed`, FE `8905c13`), chưa PR. Xoá 62 file legacy BE + 7 file FE; grep DoD rỗng; BE 716 test xanh, FE 193 test + lint 0 lỗi. Migration dry-run trên Mongo dev: 3 project / 16 section / 0 lỗi. **Còn: chạy migration thật** (ghi DB dev dùng chung — chờ xác nhận). XREQ T21→T23: `ProjectCard` + `mocks/state.ts` còn đọc `currentStep/progressPercent` |
 | 5 | T22 | B | Chưa làm | | |
 | 5 | T23 | D | Chưa làm | | |
 | 5 | T24 | C | Chưa làm | | |
