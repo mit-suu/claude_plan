@@ -269,17 +269,17 @@ Cách cập nhật: người phụ trách đổi ô Trạng thái của task mì
 | 3 | T16 | D | Xong | 2026-09-15 | DoD 5/5. Trên `develop` FE (PR #24 `ce8e2ac`, gồm `aba85d5`): `is_pipeline`/`onboardedAt` chính thức, gate gửi `session_id`, `/resume` khi mở workspace; BE `PATCH /users/me` (`a100cc4`). FE 184 test, lint 0 lỗi. Export trên trình duyệt với BE thật đã tải được docx (2026-09-15); panel còn báo `/baselines` 404 — chờ T19 |
 | — | **M3** | A + B | [x] | 2026-09-15 | **Tick 2026-09-15.** Trình duyệt với BE thật: login fixture → project run18 → Document pane từ BE, panel Export `v0.58-draft` (21 cờ đỏ ở S-4+) → tải `.docx` 226 KB (5 chương + §I, watermark DRAFT). Còn ghi spec-gaps: `/baselines` 404 (T19), tên file do CORS. Đã có: 5 contract-change + 6 XREQ chốt (spec-gaps), luồng `seed:fixture → render → assemble → Word` chạy trọn qua API trên Mongo thật; `seed → S-1.2…S-3.6 (GLM thật) → assemble → Word` chạy trọn qua API 6/6 lần, số token thật + chi phí (45–53 credit/lượt, không cần chỉnh projection) trong `docs/measurements.md`. T14 đạt DoD 3/3 lượt (run18–20). Toàn bộ W3 đã merge `develop` (BE PR #36, FE PR #24) |
 | 4 | T17 | A | Xong | 2026-09-16 | DoD 4/5. **Đã merge `develop` (PR #38, `d2775a7`)**. Impact/change 3 nhánh/reconcile/undo/traceability + 6 endpoint; session không pipeline đi qua change flow. BE 658 test xanh, typecheck sạch. FE không phải sửa (T16 đã theo contract, msw chỉ bật bằng env). Còn: vế "cờ đỏ chặn baseline mới" thuộc T19; kiểm trình duyệt với BE thật cùng D (M4) |
-| 4 | T18 | B | Đang làm | 2026-09-16 | DoD 3/4. **Đã merge `develop` (PR #39, `6a21489`)**. 8 content skill S-4…S-8.1 bỏ stub; vòng S-5 (con trỏ, lô ≤ 6 function, hành động "để lại" ⇒ placeholder); e2e mock S-4.1→S-8.1 xanh, màn 15 function chia 6+6+3. BE 570 test xanh, typecheck sạch. Số đo ở `docs/measurements.md`. **Còn: lượt chạy provider thật** — khung `E2E_AI=1` của vitest không nối Mongo nên không reserve credit được (spec-gaps); chạy qua API trên BE thật như T14 đã làm |
+| 4 | T18 | B | Xong (code) | 2026-09-16 | DoD 3/4 — mục còn lại là lượt chạy provider thật, **hoãn sau Wave 5** (xem dòng dưới bảng). **Đã merge `develop` (PR #39, `6a21489`)**. 8 content skill S-4…S-8.1 bỏ stub; vòng S-5 (con trỏ, lô ≤ 6 function, hành động "để lại" ⇒ placeholder); e2e mock S-4.1→S-8.1 xanh, màn 15 function chia 6+6+3. BE 570 test xanh, typecheck sạch. Số đo ở `docs/measurements.md`. **Còn: lượt chạy provider thật** — khung `E2E_AI=1` của vitest không nối Mongo nên không reserve credit được (spec-gaps); chạy qua API trên BE thật như T14 đã làm |
 | 4 | T19 | C | Xong | 2026-09-16 | DoD 5/5. **Đã merge `develop`** (BE + FE, `bdf053e` / `91f132d`). S-9.1 quét tất định, S-9.3 cờ vàng `goal_not_covered`, S-9.4 MoSCoW vào `priority` (thay UC34/35), S-9.5 ký baseline có snapshot + `-conditional`; endpoint 19/20; gỡ 3 route legacy. BE 685 test xanh. Chạy thật: `/baselines` 200 (đóng spec-gap M3), `/baseline` 422 đúng 35 cờ đỏ. Nhánh FE cùng tên mang XREQ T19→T16. **Còn: nút "Ký baseline" trên UI** (T16/T23) |
-| 4 | T20 | D | Đang làm | 2026-09-16 | DoD 4/4 trên mock. **Đã merge `develop`** (BE + FE, `30b9f19` / `fde920e`). 13 step Brief + 4 step S-1 qua step runner, ghi Spine bằng op; bỏ `CHAT_DISCOVERY`; FE hết suy state từ tin nhắn, thêm 3 panel Brief. BE 667 test xanh, FE 192 test xanh + lint sạch. **Còn: lượt chạy thật trên dev** |
-| — | **M4** | cả 4 | [ ] | | |
+| 4 | T20 | D | Xong (code) | 2026-09-16 | DoD 4/4 trên mock — lượt chạy provider thật **hoãn sau Wave 5**. **Đã merge `develop`** (BE + FE, `30b9f19` / `fde920e`). 13 step Brief + 4 step S-1 qua step runner, ghi Spine bằng op; bỏ `CHAT_DISCOVERY`; FE hết suy state từ tin nhắn, thêm 3 panel Brief. BE 667 test xanh, FE 192 test xanh + lint sạch. **Còn: lượt chạy thật trên dev** |
+| — | **M4** | cả 4 | [ ] **hoãn** | 2026-09-16 | Code W4 đã xong và đã merge `develop`. Điều kiện duy nhất còn thiếu là **lượt chạy provider thật** — quyết định 2026-09-16: hoãn tới sau Wave 5, mở W5 trước. Không tick cho tới khi chạy xong. |
 | 5 | T21 | A | Chưa làm | | |
 | 5 | T22 | B | Chưa làm | | |
 | 5 | T23 | D | Chưa làm | | |
 | 5 | T24 | C | Chưa làm | | |
 | — | **M5** | cả 4 | [ ] | | |
 
-**Tiến độ wave:** W1 7/7 · W2 5/5 · W3 4/4 · W4 **4/4 đã merge `develop`** (T17, T19 xong; T18, T20 chờ lượt chạy thật) · W5 0/4 · **Tổng 19/24** · Merge point: **M1 [x]** · M2 [ ] · **M3 [x]** · M4 [ ] · M5 [ ].
+**Tiến độ wave:** W1 7/7 · W2 5/5 · W3 4/4 · **W4 4/4 (code xong, đã merge `develop`)** · W5 0/4 · **Tổng 20/24** · Merge point: **M1 [x]** · M2 [ ] · **M3 [x]** · **M4 [ ] hoãn có chủ ý** · M5 [ ].
 Cập nhật 2026-09-15: W1–W3 đã trên `develop` (BE `323e6b4` PR #36, FE `ce8e2ac` PR #24); kiểm lại trên `develop`: BE typecheck sạch + 567 test, FE typecheck sạch + 184 test + lint 0 lỗi. Việc treo trước Wave 4: **nhãn `contract-change`** trên GitHub (M2); spec-gaps cho W4: `/baselines` 404 (T19), CORS `Content-Disposition` (T15/T24), assemble không cache khi thiếu PNG (T15). Chi tiết W1/W2 ở `review-t01-t12.md`.
 Cập nhật 2026-09-16: **T17 và T18 đã merge vào `develop`** (BE PR #38 rồi #39, `develop` = `6a21489`). Kiểm lại trên `develop` sau merge: BE typecheck sạch + **661 test xanh / 14 skip**. T17 đã kiểm trọn trên BE + Mongo + GLM thật (project run20, đã undo lại, tốn 3 credit) — output ở `report-t17-change-flow.md` mục 6. Cùng ngày thêm `CLAUDE.md` (bộ nhớ dự án) vào cả `flintflow_be` và `flintflow_fe`, rút từ `coding-rules.md`.
 Cập nhật 2026-09-16 (đợt 2): **cả bốn task Wave 4 đã nằm trên `develop`** — T17 (PR #38), T18 (PR #39),
@@ -293,6 +293,20 @@ Kiểm trên BE thật sau merge: `GET /baselines` 200, `GET /traceability` 200,
 (`approve-baseline`, `advance-to-generation`, `generate-priority`) đều 404 — đã gỡ đúng.
 Bốn XREQ **granted 2026-09-16**: T19→T03, T20→T03 (`prompt-assets.test.ts`), T20→T11 (`STEP_SKILLS`),
 T19→T16 (`lib/api/export.ts` gửi `base_version`).
+
+**Quyết định 2026-09-16 — hoãn lượt chạy provider thật tới sau Wave 5.** Toàn bộ code Wave 4 đã xong và
+đã merge `develop`; thứ duy nhất còn thiếu để tick M4 là chạy một project mới đi trọn B-0.1 → S-9.5 với
+model thật. Mở Wave 5 trước, **lệch quy trình mục 5 một cách có chủ ý** — ghi ở đây để sau này không ai
+tưởng M4 đã tick. Lý do và rủi ro đã cân:
+- T21–T24 không phụ thuộc chất lượng prompt: migration/xoá legacy, test tích hợp, FE e2e và Docker đều
+  độc lập với việc model đọc `SKILL.md` ra sao.
+- **Nên chạy ngay sau T22**: T22 thêm `mongodb-memory-server`, gỡ đúng lý do khiến nhánh `E2E_AI=1` hiện
+  không chạy được (`executeAiAction` cần Mongo thật để trừ credit — xem `docs/spec-gaps.md`). Sau T22 lượt
+  chạy thật thành một lệnh lặp lại được thay vì gõ tay từng step, và vẫn kịp sửa trước khi T23 khoá luồng FE.
+- Rủi ro chấp nhận: (1) ~2000 dòng `SKILL.md` của T18/T19/T20 chưa có gì chứng minh model làm theo được —
+  hoãn thì được, bỏ thì không; (2) chi phí token của vòng S-5 (chia lô ≤ 6 function × N màn) chưa ai đo,
+  biết muộn thì sửa projection đắt hơn vì T21 có đụng `modules/pipeline`.
+- Nếu model không theo được `SKILL.md` thì chỉ sửa file asset, không đụng code — đó là phần rẻ.
 
 Việc treo của W4: lượt chạy provider thật cho T18 (khung `E2E_AI=1` trong vitest không nối Mongo nên không reserve credit được — xem `docs/spec-gaps.md`; chạy qua API trên BE thật như T14 đã làm), và endpoint `POST /baseline` của T19 để đóng nốt DoD 4 của T17.
 
