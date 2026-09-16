@@ -2,7 +2,7 @@
 
 ## 1. Trạng thái
 - Trạng thái: **Xong** (chờ một XREQ để FE dùng được)
-- Nhánh: `feat/FLF-159-s9-baseline` · Commit cuối: `a26466c` · PR: chưa mở
+- Nhánh: `feat/FLF-159-s9-baseline` (BE `a26466c`) + `feat/FLF-159-s9-baseline` (FE `cdc547a`, XREQ) · PR: chưa mở
 - % ước lượng hoàn thành: 100% code · Effort đã dùng / ước lượng: 8 / 8 điểm
 
 ## 2. Đã làm (theo bước trong file task)
@@ -36,7 +36,8 @@ Tổng: **20 file · +1894 / −89**
 ## 4. Thay đổi ngoài vùng sở hữu
 | File | Lý do | Issue XREQ | Ai granted |
 |---|---|---|---|
-| `src/shared/ai/prompt-assets.test.ts` (số skill 30→31, thêm 2 dir vào `WRITTEN_NON_ACTION`) | Skill mới `content/prioritization` và `output/srs-completeness-score` viết thật thì test của T03 khoá số lượng và khoá `stub` sẽ đỏ. | `[XREQ][T19→T03]` — **chưa mở issue**, theo đúng tiền lệ đã chốt 2026-09-15 (T10/T14) và dùng lại ở T18. | **Chưa có** |
+| `src/shared/ai/prompt-assets.test.ts` (số skill 30→31, thêm 2 dir vào `WRITTEN_NON_ACTION`) | Skill mới `content/prioritization` và `output/srs-completeness-score` viết thật thì test của T03 khoá số lượng và khoá `stub` sẽ đỏ. | `[XREQ][T19→T03]` — theo đúng tiền lệ đã chốt 2026-09-15 (T10/T14) và dùng lại ở T18. | **granted 2026-09-16** |
+| `flintflow_fe/lib/api/export.ts` + `lib/api/endpoints.test.ts` | `createBaseline` gửi body rỗng nên BE trả 400; đổi chữ ký thành `createBaseline(projectId, baseVersion)` gửi `{ base_version }`. | `[XREQ][T19→T16]` | **granted 2026-09-16** — commit riêng `t19(xreq→t16): …` trên nhánh FE `feat/FLF-159-s9-baseline` |
 
 ## 5. Hợp đồng / interface bị ảnh hưởng
 - **Không sửa** `pipeline.dto.ts`, `pipeline-contract.md`, `op.types.ts`, `spine.schema.ts`, `step-registry.json`. Mọi schema cần dùng (`baselineRequestSchema`, `baselineResponseSchema`, `BASELINE_BLOCKED`) đã có sẵn.
@@ -69,8 +70,8 @@ Tổng: **20 file · +1894 / −89**
 | Vấn đề | Cần ai | Đề xuất của tôi | Mức khẩn |
 |---|---|---|---|
 | **S-9.4 tự chặn baseline.** Ghi `priority` cho mọi function/NFR làm 62 section thành `stale` (đo trên fixture 19 màn), rồi `section_stale_at_baseline` chặn đúng cái baseline ngay sau đó. | Cả 4 | Đã sửa: `priority` không ánh xạ section, y như `order`. Cần 4/4 xác nhận vì đụng `section-registry.ts`. Không sửa thì S-9 không bao giờ ký được. | **Cao** |
-| **FE chưa gửi `base_version`** khi ký baseline ⇒ 400 (đã kiểm trên BE thật) | D / T16 | XREQ T19→T16: `createBaseline(projectId, baseVersion)` gửi `{ base_version }`; `ExportPanel` truyền `spine_version` đang xem. Hai dòng. | **Cao** — chặn M4 |
-| XREQ T19→T03 cho `prompt-assets.test.ts` | B / T03 | Xác nhận theo tiền lệ T10/T14/T18 | Trung bình — chặn merge |
+| ~~FE chưa gửi `base_version`~~ | — | **Đã làm** (XREQ granted): `createBaseline(projectId, baseVersion)`. Lưu ý: **chưa component nào gọi hàm này** — `ExportPanel` mới chỉ liệt kê baseline, nút "Ký baseline" thuộc T16/T23. Tầng API đã đúng để người thêm nút không gọi sai. | — |
+| ~~XREQ T19→T03~~ | — | **granted** | — |
 | Task viết `409 RED_FLAGS_OPEN`, hợp đồng có sẵn `422 BASELINE_BLOCKED` | Cả 4 | Theo hợp đồng. Sửa câu trong task-19 cho khớp. | Thấp |
 
 ## 8. Phát hiện ngoài phạm vi (KHÔNG sửa thêm, chỉ ghi)
@@ -80,6 +81,6 @@ Tổng: **20 file · +1894 / −89**
 | `assets/prompts/priority_ranking.md`, `scope_out_of_scope.md` | Prompt của UC34/UC35 giờ không còn route nào gọi | T21 (xoá `assets/prompts` cũ) | Không (đã nằm trong kế hoạch T21) |
 
 ## 9. Bước tiếp theo
-- Việc còn lại của task này: **không còn việc code**. Cần XREQ T19→T16 để FE ký được baseline, và 4/4 xác nhận cho `priority` không ánh xạ section.
+- Việc còn lại của task này: **không còn việc code**. Cần 4/4 xác nhận cho `priority` không ánh xạ section (mục 5). Nút "Ký baseline" trên UI vẫn thiếu — thuộc T16/T23, không phải T19.
 - Ảnh hưởng tới merge point M4: **Có** — M4 cần một lượt đi trọn tới `S-9.5 → Word baseline`; endpoint đã sẵn sàng, còn thiếu lượt chạy thật và hai dòng FE.
 - Đề xuất: merge T19 sau T18 (S-9.1 quét lại glossary của S-8.1) và trước T21.

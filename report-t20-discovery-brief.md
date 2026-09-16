@@ -42,8 +42,8 @@
 ## 4. Thay đổi ngoài vùng sở hữu
 | File | Lý do | Issue XREQ | Ai granted |
 |---|---|---|---|
-| `src/modules/pipeline/context-projection.ts` (2 dòng `STEP_SKILLS`) | S-1.1/S-1.3/S-1.4 đang trỏ `project-classifier` — skill phân loại dự án, không phải skill đọc lại Brief. Không đổi ánh xạ thì `brief-analysis` không bao giờ tới model, tức là nửa task vô nghĩa. | `[XREQ][T20→T11]` — **chưa mở issue** | **Chưa có** |
-| `src/shared/ai/prompt-assets.test.ts` (số skill 30→31, thêm 2 dir vào `WRITTEN_NON_ACTION`) | Skill `product-brief` bỏ `stub` và `brief-analysis` là skill mới. | `[XREQ][T20→T03]` — theo tiền lệ T10/T14/T18/T19 | **Chưa có** |
+| `src/modules/pipeline/context-projection.ts` (2 dòng `STEP_SKILLS`) | S-1.1/S-1.3/S-1.4 đang trỏ `project-classifier` — skill phân loại dự án, không phải skill đọc lại Brief. Không đổi ánh xạ thì `brief-analysis` không bao giờ tới model, tức là nửa task vô nghĩa. | `[XREQ][T20→T11]` | **granted 2026-09-16** |
+| `src/shared/ai/prompt-assets.test.ts` (số skill 30→31, thêm 2 dir vào `WRITTEN_NON_ACTION`) | Skill `product-brief` bỏ `stub` và `brief-analysis` là skill mới. | `[XREQ][T20→T03]` — theo tiền lệ T10/T14/T18/T19 | **granted 2026-09-16** |
 
 ## 5. Hợp đồng / interface bị ảnh hưởng
 - **Không sửa** `step-registry.json`, `pipeline.dto.ts`, `pipeline-contract.md`, `spine.schema.ts`, `op.types.ts`. 13 step B-* + 4 step S-1 đã có sẵn trong registry từ T12.
@@ -71,8 +71,7 @@
 | Vấn đề | Cần ai | Đề xuất của tôi | Mức khẩn |
 |---|---|---|---|
 | Bước 5: chưa tạo project mới trên dev đi trọn B-0.1 → S-1.4 → S-2.1 với provider thật | Người quyết chi tiêu | Lượt này tốn credit (17 step × 2 lượt gọi) và tạo dữ liệu mới trên dev. Chờ quyết định, không tự chạy. Đây cũng chính là nửa đầu của lượt M4. | **Cao** — chặn M4 |
-| XREQ T20→T11 (2 dòng `STEP_SKILLS`) | C / T11 | Xác nhận; không có nó thì `brief-analysis` không bao giờ được nạp | **Cao** — chặn merge |
-| XREQ T20→T03 (`prompt-assets.test.ts`) | B / T03 | Xác nhận theo tiền lệ | Trung bình |
+| ~~XREQ T20→T11 và T20→T03~~ | — | **granted 2026-09-16**; thay đổi đã nằm sẵn trong nhánh | — |
 | Task nói "để dành" ở B-2.2 = chuyển sang `other_requirements[]`, nhưng registry chỉ cho B-2.2 ghi `addendum`/`assumptions` | Cả 4 | "Để dành" = đổi `target_section` sang `fixed:5.4`; S-7.4 (T18) đã đọc addendum nhắm `fixed:5.4`. Không mất thông tin, không phải đổi registry. Sửa câu trong task-20 cho khớp. | Thấp |
 
 ## 8. Phát hiện ngoài phạm vi (KHÔNG sửa, chỉ ghi)
@@ -83,6 +82,6 @@
 | `_components/{DiscoveryStepBar,SummaryReviewCard,StepTransitionBanner}.tsx` | Không còn được import từ T12/T16; file vẫn nằm đó | T21 (xoá legacy FE) | Không (đã có trong plan T21) |
 
 ## 9. Bước tiếp theo
-- Việc còn lại của task này: (1) hai XREQ; (2) chạy thật trên dev một project mới B-0.1 → S-1.4 rồi S-2.1, ghi số vào `docs/measurements.md` → tick nốt DoD 1 và chuyển trạng thái "Xong".
+- Việc còn lại của task này: chạy thật trên dev một project mới B-0.1 → S-1.4 rồi S-2.1, ghi số vào `docs/measurements.md` → tick nốt DoD 1 và chuyển trạng thái "Xong". Hai XREQ đã granted.
 - Ảnh hưởng tới merge point M4: **Có** — M4 đòi một project mới đi trọn B-0.1 → S-9.5 với provider thật; lượt của T20 là đoạn đầu (B-0 → S-1), nối tiếp với T18 (S-4 → S-8.1) và T19 (S-9).
 - Đề xuất: merge T20 cùng đợt với T18/T19 rồi chạy **một** lượt thật xuyên suốt cho cả ba task thay vì ba lượt rời — rẻ hơn và đúng với cái M4 cần.
