@@ -1,6 +1,6 @@
 # Task 08 — Op engine: path resolver, ops, transaction, bất biến, cascade + Pipeline API contract
 
-**Wave:** 2 · **Người phụ trách:** A · **Effort:** 13 điểm · **Trạng thái:** [ ] Chưa làm  [x] Đang làm  [ ] Xong
+**Wave:** 2 · **Người phụ trách:** A · **Effort:** 13 điểm · **Trạng thái:** [ ] Chưa làm  [ ] Đang làm  [x] Xong
 
 ## Mục tiêu
 Hiện thực "op-based write" (Phases §2.1, srs-spine §3, §6): AI phát op, code áp; một step = một transaction; bất biến kiểm cuối lô; cascade xoá; `base_version` chống hai tab; `changes[]` có `before` để undo/resume. Đồng thời viết hợp đồng API pipeline để D mock và cả nhóm bám.
@@ -47,6 +47,7 @@ A2 (ghi đè cả section, không txn/bất biến/cascade), E3 (không kiểm v
 - [x] `pipeline-contract.md` có đủ endpoint + mã lỗi; DTO zod export.
 
 > 2026-09-14: code + 78 test mới xanh trên `feat/t08-op-engine` (chưa commit). Còn: commit/PR, 4 người approve contract, đóng băng tại M2.
+> 2026-09-15: `pipeline-contract.md` đã được approve → T08 Xong. Contract đóng băng khi tick M2; thay đổi sau đó qua PR `contract-change`.
 
 ## Ghi chú / rủi ro
 - Merge `op.types.ts` và `pipeline.dto.ts` sớm (ngày 1–2) dưới PR riêng để T11/T12 không chờ.
