@@ -279,7 +279,7 @@ Cách cập nhật: người phụ trách đổi ô Trạng thái của task mì
 | 5 | T24 | C | Chưa làm | | |
 | — | **M5** | cả 4 | [ ] | | |
 
-**Tiến độ wave:** W1 7/7 · W2 5/5 · W3 4/4 · **W4 4/4 (code xong, đã merge `develop`)** · W5 1/4 merge (T23; T21 xong nhưng còn ở nhánh, T22 đang làm) · **Tổng 21/24** · Merge point: **M1 [x]** · M2 [ ] · **M3 [x]** · **M4 [ ] hoãn có chủ ý** · M5 [ ].
+**Tiến độ wave:** W1 7/7 · W2 5/5 · W3 4/4 · **W4 4/4 (code xong, đã merge `develop`)** · W5 2/4 đã merge (T21, T23; T22 đang làm, T24 chưa) · **Tổng 22/24** · Merge point: **M1 [x]** · M2 [ ] · **M3 [x]** · **M4 [ ] hoãn có chủ ý** · M5 [ ].
 Cập nhật 2026-09-15: W1–W3 đã trên `develop` (BE `323e6b4` PR #36, FE `ce8e2ac` PR #24); kiểm lại trên `develop`: BE typecheck sạch + 567 test, FE typecheck sạch + 184 test + lint 0 lỗi. Việc treo trước Wave 4: **nhãn `contract-change`** trên GitHub (M2); spec-gaps cho W4: `/baselines` 404 (T19), CORS `Content-Disposition` (T15/T24), assemble không cache khi thiếu PNG (T15). Chi tiết W1/W2 ở `review-t01-t12.md`.
 Cập nhật 2026-09-16: **T17 và T18 đã merge vào `develop`** (BE PR #38 rồi #39, `develop` = `6a21489`). Kiểm lại trên `develop` sau merge: BE typecheck sạch + **661 test xanh / 14 skip**. T17 đã kiểm trọn trên BE + Mongo + GLM thật (project run20, đã undo lại, tốn 3 credit) — output ở `report-t17-change-flow.md` mục 6. Cùng ngày thêm `CLAUDE.md` (bộ nhớ dự án) vào cả `flintflow_be` và `flintflow_fe`, rút từ `coding-rules.md`.
 Cập nhật 2026-09-16 (đợt 2): **cả bốn task Wave 4 đã nằm trên `develop`** — T17 (PR #38), T18 (PR #39),
@@ -294,14 +294,17 @@ Kiểm trên BE thật sau merge: `GET /baselines` 200, `GET /traceability` 200,
 Bốn XREQ **granted 2026-09-16**: T19→T03, T20→T03 (`prompt-assets.test.ts`), T20→T11 (`STEP_SKILLS`),
 T19→T16 (`lib/api/export.ts` gửi `base_version`).
 
-**Wave 5, trạng thái merge (2026-09-16).** T23 đã vào FE `develop` (`548fd97`). **T21 xong nhưng chưa
-merge**, đang ở nhánh `feat/FLF-161-migration-cleanup` ở **cả hai repo** (BE 3 commit, FE 2 commit).
+**Wave 5, trạng thái merge (2026-09-16).** T21 và T23 đều đã vào `develop` của **cả hai repo**:
+BE `4d0b787`, FE `82411f9`. Thứ tự merge thực tế là T23 trước rồi T21 lên trên.
 
-Đã thử gộp T21 lên trên T23 ở một nhánh nháp: **xung đột đúng một chỗ**, `lib/api/chat.ts` — cả hai cùng
-gỡ `rollbackChat`, T23 để lại chú thích còn T21 xoá sạch. **Giải bằng cách lấy bản T21** (chú thích của
-T23 nói "endpoint cũ còn trên BE tới khi T21 xoá", T21 xoá rồi nên câu đó lỗi thời).
-`lib/api/endpoints.test.ts` git tự gộp được. Sau khi gộp: typecheck sạch, lint 0 lỗi, **209 test xanh**,
-**2 e2e xanh** trên BE + Mongo thật. Nhánh nháp đã xoá, không push.
+Hai xung đột, đều nhỏ và đã gỡ:
+- BE `docs/spec-gaps.md` — T21 thêm 7 dòng, T23 thêm 1 dòng, cùng ở cuối bảng ⇒ giữ cả hai khối.
+- FE `lib/api/chat.ts` — cả hai cùng gỡ `rollbackChat`, T23 để lại chú thích còn T21 xoá sạch ⇒ **lấy bản
+  T21**, vì chú thích của T23 nói "endpoint cũ còn trên BE tới khi T21 xoá" mà T21 đã xoá luôn endpoint đó.
+  `lib/api/endpoints.test.ts` git tự gộp.
+
+Kiểm sau merge: BE typecheck sạch + **716 test xanh / 14 skip**; FE typecheck sạch, lint 0 lỗi,
+**209 test xanh**, build xanh, **2 e2e xanh** trên BE + Mongo thật.
 
 ⚠ **Trùng số nhánh:** T21 dùng `FLF-161-migration-cleanup`, T23 dùng `FLF-161-fe-integration-e2e` — cùng
 161. Nên đổi ticket T23 thành **FLF-162** trong Jira.
